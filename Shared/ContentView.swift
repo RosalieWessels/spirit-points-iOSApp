@@ -10,7 +10,10 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack{
-            Text("Corona Point Website").foregroundColor(.green).font(.system(.largeTitle, design: .rounded)).fontWeight(.black)
+            Text("Corona Point Website")
+                .foregroundColor(.green)
+                .font(.system(.largeTitle, design: .rounded))
+                .fontWeight(.black)
         }
     }
 }
