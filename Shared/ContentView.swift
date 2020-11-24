@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Corona Point Website")
+        Text("Corona Point Website").foregroundColor(.green)
     }
 }
 
