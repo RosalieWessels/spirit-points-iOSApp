@@ -49,10 +49,10 @@ struct PointsCard: View {
     var body: some View {
         VStack{
             HStack{
-                Button(action:{ add_points (points1: points)}) {Image("Plus_button").resizable().aspectRatio(contentMode:.fit)
+                Button(action:{ add_points (points1: points)}) {Image("Plus_button").resizable().aspectRatio(contentMode:.fit).frame(minWidth: 10, maxWidth:.infinity, minHeight: 10)
                 }
             
-                Button(action:{sub_points(points1: points)}){Image("Sub_button").resizable().aspectRatio(contentMode:.fit)
+                Button(action:{sub_points(points1: points)}){Image("Sub_button").resizable().aspectRatio(contentMode:.fit).frame(minWidth: 10, maxWidth:.infinity, minHeight: 10)
                 }
             }
             Text(grade).font(.body).fontWeight(.heavy)
