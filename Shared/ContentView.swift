@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack{
-                Text("Corona Point Website")
+                Text("Corona Point App")
                     .foregroundColor(.green)
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.black).padding()
