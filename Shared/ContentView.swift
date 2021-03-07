@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var seventhGradePoints = 10
+    @State var eightGradePoints = 8
+    @State var ninthGradePoints = 14
+    @State var tenthGradePoints = 16
+    @State var eleventhGradePoints = 15
+    @State var twelfthGradePoints = 4
+    
     var body: some View {
         ScrollView {
             VStack{
@@ -16,6 +23,7 @@ struct ContentView: View {
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.black).padding()
                 
+                //Cards
                 Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                 
                 PointsCard(grade: "Seventh Grade", points: 10)
@@ -31,6 +39,11 @@ struct ContentView: View {
                 PointsCard(grade: "Juniors", points: 10)
                 
                 PointsCard(grade: "Senior", points: 10)
+                
+                //Add Bar Graph here:
+                
+                
+                //Add Upcoming Events section here:
                 
             }
         }
