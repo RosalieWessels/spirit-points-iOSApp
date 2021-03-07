@@ -26,19 +26,19 @@ struct ContentView: View {
                 //Cards
                 Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                 
-                PointsCard(grade: "Seventh Grade", points: 10)
+                PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
                 
-                PointsCard(grade: "Eighth Grade", points: 10)
+                PointsCard(grade: "Eighth Grade", points: eightGradePoints)
                 
                 Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
         
-                PointsCard(grade: "Freshman", points: 10)
+                PointsCard(grade: "Freshman", points: ninthGradePoints)
                 
-                PointsCard(grade: "Sophomores", points: 10)
+                PointsCard(grade: "Sophomores", points: tenthGradePoints)
                 
-                PointsCard(grade: "Juniors", points: 10)
+                PointsCard(grade: "Juniors", points: eleventhGradePoints)
                 
-                PointsCard(grade: "Senior", points: 10)
+                PointsCard(grade: "Senior", points: twelfthGradePoints)
                 
                 //Add Bar Graph here:
                 
@@ -59,23 +59,72 @@ struct ContentView_Previews: PreviewProvider {
 struct PointsCard: View {
     @State var grade: String
     @State var points: Int
+    @State var changingPoints: String = ""
     var body: some View {
-        VStack{
-            HStack{
-                Button(action:{ add_points (points1: points)}) {Image("Plus_button").resizable().aspectRatio(contentMode:.fit).frame(width: 50, height: 50)
-                }
+        
+        VStack {
             
-                Button(action:{sub_points(points1: points)}){Image("Sub_button").resizable().aspectRatio(contentMode:.fit).frame(width: 70, height: 70)
+            ZStack {
+                Rectangle()
+                    .fill(Color.green)
+                    .frame(width:358, height:65)
+                    .cornerRadius(10)
+                    .padding(-30)
+                
+                Text(grade).font(.body).fontWeight(.heavy)
+                    .foregroundColor(Color.white)
+                    .font(.system(.title2,design: .rounded))
+            }
+            
+            
+            VStack (alignment: .leading){
+                
+                Text("Number of Points:")
+                    .bold()
+                Text(String(points))
+                
+                HStack{
+                    
+                    TextField("# of points added", text:$changingPoints)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button(action:{ add_points (points1: points)}) {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.green)
+                                .frame(width:40, height:40)
+                                .cornerRadius(10)
+                            
+                            Text("+")
+                                .foregroundColor(.white)
+                                .font(.system(size:35))
+                                .bold()
+                                .padding(.bottom, 5)
+                        }
+                    }
+                
+                    Button(action:{sub_points(points1: points)}){
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.green)
+                                .frame(width:40, height:40)
+                                .cornerRadius(10)
+                            
+                            Text("-")
+                                .foregroundColor(.white)
+                                .font(.system(size:35))
+                                .bold()
+                                .padding(.bottom, 5)
+                        }
+                    }
                 }
             }
-            Text(grade).font(.body).fontWeight(.heavy)
-            Text("Number of Points: \(points)")
+            .padding()
+            .frame(minWidth: 0, maxWidth:.infinity, minHeight: 200)
+            
+            .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.green, lineWidth: 8))
+            .padding(.horizontal)
         }
-        .padding()
-        .frame(minWidth: 0, maxWidth:.infinity, minHeight: 200)
-        
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.green, lineWidth: 8))
-        .padding(.horizontal)
         .padding()
     }
     func add_points(points1: Int) {
