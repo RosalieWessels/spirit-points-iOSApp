@@ -43,7 +43,23 @@ struct ContentView: View {
                 //Add Bar Graph here:
                 
                 
+                
+                
+            }
+            VStack {
                 //Add Upcoming Events section here:
+                Text("Upcoming Events - Get Hyped")
+                    .font(.system(.title2, design: .rounded))
+                    .fontWeight(.bold)
+                    .padding()
+                
+                UpcomingEventsView(text: "Crazy Hair Day")
+                
+                
+                UpcomingEventsView(text: "Talent Show")
+                
+                UpcomingEventsView(text: "Valentine's Exchange")
+                
                 
             }
         }
@@ -84,5 +100,26 @@ struct PointsCard: View {
 
     func sub_points(points1: Int) {
         points = points - 10
+    }
+}
+
+struct UpcomingEventsView: View {
+    @State var text : String
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            
+            Text(text)
+                .font(.system(.headline))
+                .padding(.vertical)
+            
+            Spacer()
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.gray, lineWidth: 1)
+        )
+        .padding(.horizontal)
     }
 }
