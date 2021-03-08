@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112AC35E25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */; };
+		112AC35F25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */; };
 		113DE8FC256C887F00C19DD2 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE8FB256C887F00C19DD2 /* Tests_iOS.swift */; };
 		113DE907256C887F00C19DD2 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE906256C887F00C19DD2 /* Tests_macOS.swift */; };
 		113DE909256C887F00C19DD2 /* SpiritPointsiOSAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */; };
@@ -15,6 +17,8 @@
 		113DE90C256C887F00C19DD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE8E1256C887E00C19DD2 /* ContentView.swift */; };
 		113DE90D256C887F00C19DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 113DE8E2256C887F00C19DD2 /* Assets.xcassets */; };
 		113DE90E256C887F00C19DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 113DE8E2256C887F00C19DD2 /* Assets.xcassets */; };
+		4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */; };
+		B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07A20A2DADA2786275B1CE49 /* Pods-SpiritPointsiOSApp (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).debug.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).debug.xcconfig"; sourceTree = "<group>"; };
+		112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritPointsiOSAppApp.swift; sourceTree = "<group>"; };
 		113DE8E1256C887E00C19DD2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		113DE8E2256C887F00C19DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +55,11 @@
 		113DE902256C887F00C19DD2 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		113DE906256C887F00C19DD2 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		113DE908256C887F00C19DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpiritPointsiOSApp__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; sourceTree = "<group>"; };
+		66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; sourceTree = "<group>"; };
+		AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpiritPointsiOSApp__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7137174D44810650BB32491 /* Pods-SpiritPointsiOSApp (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (iOS).debug.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +105,8 @@
 				113DE8FA256C887F00C19DD2 /* Tests iOS */,
 				113DE905256C887F00C19DD2 /* Tests macOS */,
 				113DE8E8256C887F00C19DD2 /* Products */,
+				76B88BE08A8763D9B46841F7 /* Pods */,
+				63BB099260CD35827027DD06 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +116,7 @@
 				113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */,
 				113DE8E1256C887E00C19DD2 /* ContentView.swift */,
 				113DE8E2256C887F00C19DD2 /* Assets.xcassets */,
+				112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -151,6 +167,27 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		63BB099260CD35827027DD06 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */,
+				15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76B88BE08A8763D9B46841F7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D7137174D44810650BB32491 /* Pods-SpiritPointsiOSApp (iOS).debug.xcconfig */,
+				1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */,
+				07A20A2DADA2786275B1CE49 /* Pods-SpiritPointsiOSApp (macOS).debug.xcconfig */,
+				66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,9 +195,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 113DE911256C887F00C19DD2 /* Build configuration list for PBXNativeTarget "SpiritPointsiOSApp (iOS)" */;
 			buildPhases = (
+				F045DA6F33B696C8B39DDD39 /* [CP] Check Pods Manifest.lock */,
 				113DE8E3256C887F00C19DD2 /* Sources */,
 				113DE8E4256C887F00C19DD2 /* Frameworks */,
 				113DE8E5256C887F00C19DD2 /* Resources */,
+				A50774FCFD2635A7EB2DAB1E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -175,6 +214,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 113DE914256C887F00C19DD2 /* Build configuration list for PBXNativeTarget "SpiritPointsiOSApp (macOS)" */;
 			buildPhases = (
+				9C38568DECB11E8A6478D78D /* [CP] Check Pods Manifest.lock */,
 				113DE8EB256C887F00C19DD2 /* Sources */,
 				113DE8EC256C887F00C19DD2 /* Frameworks */,
 				113DE8ED256C887F00C19DD2 /* Resources */,
@@ -275,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				112AC35E25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */,
 				113DE90D256C887F00C19DD2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +324,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				112AC35F25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */,
 				113DE90E256C887F00C19DD2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +344,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9C38568DECB11E8A6478D78D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpiritPointsiOSApp (macOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A50774FCFD2635A7EB2DAB1E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS)-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS)-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F045DA6F33B696C8B39DDD39 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SpiritPointsiOSApp (iOS)-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		113DE8E3256C887F00C19DD2 /* Sources */ = {
@@ -467,6 +573,7 @@
 		};
 		113DE912256C887F00C19DD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7137174D44810650BB32491 /* Pods-SpiritPointsiOSApp (iOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -488,6 +595,7 @@
 		};
 		113DE913256C887F00C19DD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -510,6 +618,7 @@
 		};
 		113DE915256C887F00C19DD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07A20A2DADA2786275B1CE49 /* Pods-SpiritPointsiOSApp (macOS).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -532,6 +641,7 @@
 		};
 		113DE916256C887F00C19DD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

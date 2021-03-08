@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
-    @State var seventhGradePoints = 10
+    @State var seventhGradePoints = 0
     @State var eightGradePoints = 8
     @State var ninthGradePoints = 14
     @State var tenthGradePoints = 16
     @State var eleventhGradePoints = 15
     @State var twelfthGradePoints = 4
+    
+    @State var db = Firestore.firestore()
     
     var body: some View {
         ScrollView {
@@ -26,7 +29,9 @@ struct ContentView: View {
                 //Cards
                 Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                 
-                PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
+                if seventhGradePoints != 0 {
+                    PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
+                }
                 
                 PointsCard(grade: "Eighth Grade", points: eightGradePoints)
                 
@@ -63,7 +68,29 @@ struct ContentView: View {
                 
             }
         }
+        .onAppear(perform: {
+            getPoints()
+        })
     }
+    
+    func getPoints() {
+        let docRef = db.collection("points").document("7th Grade")
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    seventhGradePoints = points
+                    print(seventhGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
