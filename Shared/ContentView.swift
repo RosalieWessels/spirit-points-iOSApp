@@ -108,7 +108,7 @@ struct PointsCard: View {
         VStack {
             
             ZStack {
-                Rectangle()
+                RoundedRectangle(cornerRadius:20)
                     .fill(Color.green)
                     .frame(width:358, height:65)
                     .cornerRadius(10)
@@ -118,6 +118,7 @@ struct PointsCard: View {
                     .foregroundColor(Color.white)
                     .font(.system(.title2,design: .rounded))
             }
+            .padding(.bottom, -40)
             
             
             VStack (alignment: .leading){
