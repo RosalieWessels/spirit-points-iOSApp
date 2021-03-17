@@ -18,6 +18,8 @@ struct ContentView: View {
     
     @State var db = Firestore.firestore()
     
+    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break"]
+    
     var body: some View {
         ScrollView {
             VStack{
@@ -51,19 +53,28 @@ struct ContentView: View {
                 
                 
             }
-            VStack {
+            VStack (spacing: 0) {
                 //Add Upcoming Events section here:
                 Text("Upcoming Events - Get Hyped")
                     .font(.system(.title2, design: .rounded))
                     .fontWeight(.bold)
                     .padding()
                 
-                UpcomingEventsView(text: "Crazy Hair Day")
-                
-                
-                UpcomingEventsView(text: "Talent Show")
-                
-                UpcomingEventsView(text: "Valentine's Exchange")
+                VStack(spacing: 1) {
+                    ForEach(0..<upcomingEventsList.count) { index in
+                        Text("\(upcomingEventsList[index])")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 55)
+                            .background(Color.white)
+                        
+                    }
+                }
+                .background(Color.gray)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding()
                 
                 
             }
@@ -180,23 +191,3 @@ struct PointsCard: View {
     }
 }
 
-struct UpcomingEventsView: View {
-    @State var text : String
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            
-            Text(text)
-                .font(.system(.headline))
-                .padding(.vertical)
-            
-            Spacer()
-        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.gray, lineWidth: 1)
-        )
-        .padding(.horizontal)
-    }
-}
