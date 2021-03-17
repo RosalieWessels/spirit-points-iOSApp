@@ -18,12 +18,12 @@ struct ContentView: View {
     
     @State var db = Firestore.firestore()
     
-    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break"]
+    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
     var body: some View {
         ScrollView {
             VStack{
-                Text("Corona Point App")
+                Text("Corona Points App")
                     .foregroundColor(.green)
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.black).padding()
@@ -78,6 +78,15 @@ struct ContentView: View {
                 
                 
             }
+            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
+                Text("Admin")
+                    .foregroundColor(.green)
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 20).stroke(Color.green, lineWidth: 2)
+            
+            )
         }
         .onAppear(perform: {
             getPoints()
