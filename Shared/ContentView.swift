@@ -16,6 +16,8 @@ struct ContentView: View {
     @State var eleventhGradePoints = 15
     @State var twelfthGradePoints = 4
     
+    @State var winningGrade: String = ""
+    
     @State var db = Firestore.firestore()
     
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
@@ -27,6 +29,7 @@ struct ContentView: View {
                     .foregroundColor(.green)
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.black).padding()
+                
                 
                 //Cards
                 Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
@@ -53,6 +56,8 @@ struct ContentView: View {
                 
                 
             }
+            
+            
             VStack (spacing: 0) {
                 //Add Upcoming Events section here:
                 Text("Upcoming Events - Get Hyped")
@@ -90,7 +95,18 @@ struct ContentView: View {
         }
         .onAppear(perform: {
             getPoints()
+            findWinningGradeHS()
         })
+    
+    }
+    
+    //Finding grade with the least amount of points (current winners)
+    func findWinningGradeHS(){
+        var winnerHS = ""
+        if ninthGradePoints >= tenthGradePoints {
+            winnerHS = "ninthGrade"
+        }
+        print(winnerHS)
     }
     
     func getPoints() {
