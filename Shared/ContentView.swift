@@ -182,7 +182,7 @@ struct PointsCard: View {
 
     func sub_points(points1: Int) {
         guard let changingPoints = Int(changingPoints) else { return }
-        points = points - 10
+        points = points - changingPoints
     }
 }
 
