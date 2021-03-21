@@ -11,13 +11,11 @@ import Firebase
 struct ContentView: View {
     @State var seventhGradePoints = 0
     @State var eightGradePoints = 8
-    @State var ninthGradePoints = 14
-    @State var tenthGradePoints = 16
+    @State var ninthGradePoints = 10
+    @State var tenthGradePoints = 1
     @State var eleventhGradePoints = 15
     @State var twelfthGradePoints = 4
-    
-    @State var winningGrade: String = ""
-    
+
     @State var db = Firestore.firestore()
     
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break"]
@@ -86,18 +84,26 @@ struct ContentView: View {
         }
         .onAppear(perform: {
             getPoints()
-            findWinningGradeHS()
         })
     
     }
     
     //Finding grade with the least amount of points (current winners)
-    func findWinningGradeHS(){
+    func findWinningGradeHS() -> String{
         var winnerHS = ""
-        if ninthGradePoints >= tenthGradePoints {
-            winnerHS = "ninthGrade"
+        if ninthGradePoints <= tenthGradePoints && ninthGradePoints <= eleventhGradePoints && ninthGradePoints <= twelfthGradePoints{
+            winnerHS = "Freshman"
         }
-        print(winnerHS)
+        else if tenthGradePoints <= ninthGradePoints && tenthGradePoints <= eleventhGradePoints && tenthGradePoints <= twelfthGradePoints{
+            winnerHS = "Sophomores"
+        }
+        else if eleventhGradePoints <= ninthGradePoints && eleventhGradePoints <= tenthGradePoints && eleventhGradePoints <= twelfthGradePoints {
+            winnerHS = "Juniors"
+        }
+        else {
+            winnerHS = "Seniors"
+        }
+        return winnerHS
     }
     
     func getPoints() {
@@ -132,7 +138,6 @@ struct PointsCard: View {
     @State var changingPoints: String = ""
     @State var isAdminUser: Bool = true
     var body: some View {
-        
         VStack {
             
             ZStack {
@@ -141,9 +146,15 @@ struct PointsCard: View {
                     .frame(width:352, height:65)
                     .padding(-30)
                 
-                Text(grade).font(.body).fontWeight(.heavy)
-                    .foregroundColor(Color.white)
-                    .font(.system(.title2,design: .rounded))
+                HStack {
+                    // wrap in if statement for winnerHS
+                    Image(systemName: "crown.filled")
+                        .foregroundColor(.black)
+                    
+                    Text(grade).font(.body).fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                        .font(.system(.title2,design: .rounded))
+                }
             }
             
             
