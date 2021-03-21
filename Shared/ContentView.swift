@@ -20,6 +20,8 @@ struct ContentView: View {
     
     @State var db = Firestore.firestore()
     
+    @State var showAlert = false
+    
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
     var body: some View {
@@ -83,13 +85,15 @@ struct ContentView: View {
                 
                 
             }
-            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {
+                showAlert=true
+            }) {
                 Text("Admin")
                     .foregroundColor(.green)
             }
             .padding()
             .overlay(
-                RoundedRectangle(cornerRadius: 20).stroke(Color.green, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
             
             )
         }
@@ -97,6 +101,15 @@ struct ContentView: View {
             getPoints()
             findWinningGradeHS()
         })
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Log In"),
+                message: Text("Text 1"),
+                primaryButton: .default(Text("Log In")) {
+                    print("Log In")
+                },
+                secondaryButton: .cancel())
+        }
     
     }
     
