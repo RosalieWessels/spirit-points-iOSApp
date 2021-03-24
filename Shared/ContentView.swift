@@ -10,10 +10,10 @@ import Firebase
 
 struct ContentView: View {
     @State var seventhGradePoints = 0
-    @State var eightGradePoints = 8
+    @State var eightGradePoints = 32
     @State var ninthGradePoints = 10
-    @State var tenthGradePoints = 1
-    @State var eleventhGradePoints = 15
+    @State var tenthGradePoints = 13
+    @State var eleventhGradePoints = 1
     @State var twelfthGradePoints = 4
 
     @State var db = Firestore.firestore()
@@ -35,20 +35,20 @@ struct ContentView: View {
                 Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                 
                 if seventhGradePoints != 0 {
-                    PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
+                    PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"))
                 }
                 
-                PointsCard(grade: "Eighth Grade", points: eightGradePoints)
+                PointsCard(grade: "Eighth Grade", points: eightGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"))
                 
                 Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
         
-                PointsCard(grade: "Freshman", points: ninthGradePoints)
+                PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
                 
-                PointsCard(grade: "Sophomores", points: tenthGradePoints)
+                PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
                 
-                PointsCard(grade: "Juniors", points: eleventhGradePoints)
+                PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
                 
-                PointsCard(grade: "Senior", points: twelfthGradePoints)
+                PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
                 
                 //Add Bar Graph here:
                 
@@ -111,7 +111,7 @@ struct ContentView: View {
     }
     
     //Finding grade with the least amount of points (current winners)
-    func findWinningGradeHS() -> String{
+    func isWinnerHS(grade: String) -> Bool{
         var winnerHS = ""
         if ninthGradePoints <= tenthGradePoints && ninthGradePoints <= eleventhGradePoints && ninthGradePoints <= twelfthGradePoints{
             winnerHS = "Freshman"
@@ -125,7 +125,20 @@ struct ContentView: View {
         else {
             winnerHS = "Seniors"
         }
-        return winnerHS
+        return grade == winnerHS
+    }
+    
+    func isWinnerJH(grade: String) -> Bool{
+        var winnerJH = ""
+        if seventhGradePoints <= eightGradePoints{
+            winnerJH = "Seventh Grade"
+        }
+        else {
+            winnerJH = "Eighth Grade"
+        }
+        print(winnerJH)
+        print(winnerJH == grade)
+        return grade == winnerJH
     }
     
     func getPoints() {
@@ -157,8 +170,11 @@ struct ContentView_Previews: PreviewProvider {
 struct PointsCard: View {
     @State var grade: String
     @State var points: Int
+    @State var is_winner: Bool
+    
     @State var changingPoints: String = ""
     @State var isAdminUser: Bool = true
+    
     var body: some View {
         VStack {
             
@@ -169,9 +185,10 @@ struct PointsCard: View {
                     .padding(-30)
                 
                 HStack {
-                    // wrap in if statement for winnerHS
-                    Image(systemName: "crown.filled")
-                        .foregroundColor(.black)
+                    if is_winner {
+                        Image(systemName: "crown.fill")
+                            .foregroundColor(.yellow)
+                    }
                     
                     Text(grade).font(.body).fontWeight(.heavy)
                         .foregroundColor(Color.white)
