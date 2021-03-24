@@ -18,12 +18,14 @@ struct ContentView: View {
 
     @State var db = Firestore.firestore()
     
-    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break"]
+    @State var showAlert = false
+    
+    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
     var body: some View {
         ScrollView {
             VStack{
-                Text("Corona Point App")
+                Text("Corona Points App")
                     .foregroundColor(.green)
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.black).padding()
@@ -81,10 +83,30 @@ struct ContentView: View {
                 
                 
             }
+            Button(action: {
+                showAlert=true
+            }) {
+                Text("Admin")
+                    .foregroundColor(.green)
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+            
+            )
         }
         .onAppear(perform: {
             getPoints()
         })
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Log In"),
+                message: Text("Text 1"),
+                primaryButton: .default(Text("Log In")) {
+                    print("Log In")
+                },
+                secondaryButton: .cancel())
+        }
     
     }
     
