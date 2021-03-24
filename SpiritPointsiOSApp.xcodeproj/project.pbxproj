@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,8 @@
 		113DE90C256C887F00C19DD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE8E1256C887E00C19DD2 /* ContentView.swift */; };
 		113DE90D256C887F00C19DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 113DE8E2256C887F00C19DD2 /* Assets.xcassets */; };
 		113DE90E256C887F00C19DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 113DE8E2256C887F00C19DD2 /* Assets.xcassets */; };
+		11ABC210260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
+		11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
 		4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */; };
 		B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,7 @@
 		113DE902256C887F00C19DD2 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		113DE906256C887F00C19DD2 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		113DE908256C887F00C19DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11ABC20F260BD63900F0DF97 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpiritPointsiOSApp__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 			children = (
 				113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */,
 				113DE8E1256C887E00C19DD2 /* ContentView.swift */,
+				11ABC20F260BD63900F0DF97 /* LogInView.swift */,
 				113DE8E2256C887F00C19DD2 /* Assets.xcassets */,
 				112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */,
 			);
@@ -184,7 +188,6 @@
 				07A20A2DADA2786275B1CE49 /* Pods-SpiritPointsiOSApp (macOS).debug.xcconfig */,
 				66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -414,6 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11ABC210260BD63900F0DF97 /* LogInView.swift in Sources */,
 				113DE90B256C887F00C19DD2 /* ContentView.swift in Sources */,
 				113DE909256C887F00C19DD2 /* SpiritPointsiOSAppApp.swift in Sources */,
 			);
@@ -423,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */,
 				113DE90C256C887F00C19DD2 /* ContentView.swift in Sources */,
 				113DE90A256C887F00C19DD2 /* SpiritPointsiOSAppApp.swift in Sources */,
 			);

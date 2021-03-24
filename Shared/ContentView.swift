@@ -25,92 +25,106 @@ struct ContentView: View {
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
     var body: some View {
-        ScrollView {
-            VStack{
-                Text("Corona Points App")
-                    .foregroundColor(.green)
-                    .font(.system(.largeTitle, design: .rounded))
-                    .fontWeight(.black).padding()
-                
-                
-                //Cards
-                Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-                
-                if seventhGradePoints != 0 {
-                    PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
-                }
-                
-                PointsCard(grade: "Eighth Grade", points: eightGradePoints)
-                
-                Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-        
-                PointsCard(grade: "Freshman", points: ninthGradePoints)
-                
-                PointsCard(grade: "Sophomores", points: tenthGradePoints)
-                
-                PointsCard(grade: "Juniors", points: eleventhGradePoints)
-                
-                PointsCard(grade: "Senior", points: twelfthGradePoints)
-                
-                //Add Bar Graph here:
-                
-                
-                
-                
-            }
-            
-            
-            VStack (spacing: 0) {
-                //Add Upcoming Events section here:
-                Text("Upcoming Events - Get Hyped")
-                    .font(.system(.title2, design: .rounded))
-                    .fontWeight(.bold)
-                    .padding()
-                
-                VStack(spacing: 1) {
-                    ForEach(0..<upcomingEventsList.count) { index in
-                        Text("\(upcomingEventsList[index])")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 55)
-                            .background(Color.white)
-                        
+        NavigationView {
+            ScrollView {
+                VStack{
+                    Text("Corona Points App")
+                        .foregroundColor(.green)
+                        .font(.system(.largeTitle, design: .rounded))
+                        .fontWeight(.black).padding()
+                    
+                    
+                    //Cards
+                    Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
+                    
+                    if seventhGradePoints != 0 {
+                        PointsCard(grade: "Seventh Grade", points: seventhGradePoints)
                     }
-                }
-                .background(Color.gray)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .padding()
-                
-                
-            }
-            Button(action: {
-                showAlert=true
-            }) {
-                Text("Admin")
-                    .foregroundColor(.green)
-            }
-            .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                    
+                    PointsCard(grade: "Eighth Grade", points: eightGradePoints)
+                    
+                    Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
             
-            )
+                    PointsCard(grade: "Freshman", points: ninthGradePoints)
+                    
+                    PointsCard(grade: "Sophomores", points: tenthGradePoints)
+                    
+                    PointsCard(grade: "Juniors", points: eleventhGradePoints)
+                    
+                    PointsCard(grade: "Senior", points: twelfthGradePoints)
+                    
+                    //Add Bar Graph here:
+                    
+                    
+                    
+                    
+                }
+                
+                
+                VStack (spacing: 0) {
+                    //Add Upcoming Events section here:
+                    Text("Upcoming Events - Get Hyped")
+                        .font(.system(.title2, design: .rounded))
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    VStack(spacing: 1) {
+                        ForEach(0..<upcomingEventsList.count) { index in
+                            Text("\(upcomingEventsList[index])")
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 55)
+                                .background(Color.white)
+                            
+                        }
+                    }
+                    .background(Color.gray)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                    .padding()
+                    
+                    
+                }
+                Button(action: {
+                    showAlert=true
+                }) {
+                    Text("Admin")
+                        .foregroundColor(.green)
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                
+                )
+                
+                NavigationLink(destination: LogInView()) {
+                    Text("Admin")
+                        .foregroundColor(.green)
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                )
+                
+            }
+            .onAppear(perform: {
+                getPoints()
+                findWinningGradeHS()
+            })
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Log In"),
+                    message: Text("Text 1"),
+                    primaryButton: .default(Text("Log In")) {
+                        print("Log In")
+                    },
+                    secondaryButton: .cancel())
+            }
+            
+            .navigationTitle("")
+            .navigationBarHidden(true)
         }
-        .onAppear(perform: {
-            getPoints()
-            findWinningGradeHS()
-        })
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Log In"),
-                message: Text("Text 1"),
-                primaryButton: .default(Text("Log In")) {
-                    print("Log In")
-                },
-                secondaryButton: .cancel())
-        }
-    
     }
     
     //Finding grade with the least amount of points (current winners)
