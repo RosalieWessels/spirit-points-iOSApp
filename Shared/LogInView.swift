@@ -10,18 +10,25 @@ import SwiftUI
 struct LogInView: View {
     @State var username = ""
     @State var password = ""
+    @State var showAlert = false
+    
     var body: some View {
         
         VStack{
+            Spacer()
             HStack {
                 Text ("Username")
                     .font(.title)
                     .bold()
                 Spacer()
             }
+            
             .padding(.leading)
             
-            TextField("Username", text: $username).padding(.horizontal)
+            TextField("Username", text: $username)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+                .padding(.bottom,50)
             
             HStack {
                 Text("Password").font(.title)
@@ -31,19 +38,40 @@ struct LogInView: View {
                 
             }.padding(.leading)
             
-            TextField("Password", text: $password)
+            SecureField("Password", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .padding(.bottom,50)
             
-            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
+            
+            
+            Button(action: {checkLogin()}) {
                 Text("Submit").foregroundColor(.green)
             }
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
             )
-            
+            Spacer()
         }
-            .navigationBarTitle("Admin Login", displayMode: .inline)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Login successful!"),
+                message: Text("Your login was successful!"),
+                dismissButton: .default(Text("Take me back to the home screen")) {
+                    print("Log In")
+                }
+            )
+        }
+        
+        .navigationBarTitle("Admin Login", displayMode: .inline)
+    }
+    
+    func checkLogin() {
+        if username == "admin123" && password == "password" {
+            print("That checks out")
+            showAlert=true
+        }
     }
 }
 
