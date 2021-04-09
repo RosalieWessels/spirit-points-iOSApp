@@ -10,7 +10,8 @@ import SwiftUI
 struct LogInView: View {
     @State var username = ""
     @State var password = ""
-    @State var showAlert = false
+    @State var showSuccessfulAlert = false
+    @State var showUnsuccessfulAlert = false
     
     var body: some View {
         
@@ -54,7 +55,7 @@ struct LogInView: View {
             )
             Spacer()
         }
-        .alert(isPresented: $showAlert) {
+        .alert(isPresented: $showSuccessfulAlert) {
             Alert(
                 title: Text("Login successful!"),
                 message: Text("Your login was successful!"),
@@ -70,7 +71,7 @@ struct LogInView: View {
     func checkLogin() {
         if username == "admin123" && password == "password" {
             print("That checks out")
-            showAlert=true
+            showSuccessfulAlert=true
         }
     }
 }
