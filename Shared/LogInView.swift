@@ -43,6 +43,16 @@ struct LogInView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .padding(.bottom,50)
+                .alert(isPresented: $showUnsuccessfulAlert){
+                    Alert(
+                        title: Text("Login Unsuccessful"),
+                        message: Text("Your login was unsuccessful, please check your username or password."),
+                        dismissButton:
+                            .default(Text("Close and Try Again")) {
+                                print("Try Again")
+                            }
+                    )
+                }
             
             
             
@@ -53,16 +63,18 @@ struct LogInView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
             )
+            .alert(isPresented: $showSuccessfulAlert) {
+                Alert(
+                    title: Text("Login successful!"),
+                    message: Text("Your login was successful!"),
+                    dismissButton: .default(Text("Take me back to the home screen")) {
+                        print("Log In")
+                    }
+                )
+            }
+
+            
             Spacer()
-        }
-        .alert(isPresented: $showSuccessfulAlert) {
-            Alert(
-                title: Text("Login successful!"),
-                message: Text("Your login was successful!"),
-                dismissButton: .default(Text("Take me back to the home screen")) {
-                    print("Log In")
-                }
-            )
         }
         
         .navigationBarTitle("Admin Login", displayMode: .inline)
@@ -72,6 +84,10 @@ struct LogInView: View {
         if username == "admin123" && password == "password" {
             print("That checks out")
             showSuccessfulAlert=true
+        }
+        else {
+            print ("Thats not right")
+            showUnsuccessfulAlert=true
         }
     }
 }

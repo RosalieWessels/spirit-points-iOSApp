@@ -10,8 +10,8 @@ import Firebase
 
 struct ContentView: View {
     @State var seventhGradePoints = 0
-    @State var eightGradePoints = 24
-    @State var ninthGradePoints = 10
+    @State var eighthGradePoints = 0
+    @State var ninthGradePoints = 0
     @State var tenthGradePoints = 13
     @State var eleventhGradePoints = 24
     @State var twelfthGradePoints = 4
@@ -38,11 +38,16 @@ struct ContentView: View {
                         PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"))
                     }
                     
-                    PointsCard(grade: "Eighth Grade", points: eightGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"))
+                    if eighthGradePoints != 0 {
+                        PointsCard(grade: "Eighth Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"))
+                    }
                     
                     Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
             
-                    PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
+                    if ninthGradePoints != 0 {
+                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
+                    }
+                    
                     
                     PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
                     
@@ -93,6 +98,8 @@ struct ContentView: View {
                         RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
                     )
                     
+                    Text("@ Pinewood 2021 Tech Club").padding(.top, 20)
+                    
                 }
                 .onAppear(perform: {
                     getPoints()
@@ -124,7 +131,7 @@ struct ContentView: View {
     
     func isWinnerJH(grade: String) -> Bool{
         var winnerJH = ""
-        if seventhGradePoints <= eightGradePoints{
+        if seventhGradePoints <= eighthGradePoints{
             winnerJH = "Seventh Grade"
         }
         else {
@@ -136,9 +143,11 @@ struct ContentView: View {
     }
     
     func getPoints() {
-        let docRef = db.collection("points").document("7th Grade")
+        
+        //7th Grade
+        let docRefSeventhGrade = db.collection("points").document("7th Grade")
 
-        docRef.getDocument { (document, error) in
+        docRefSeventhGrade.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
@@ -146,6 +155,35 @@ struct ContentView: View {
                     print("FOUND THE DATA")
                     seventhGradePoints = points
                     print(seventhGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        //8th Grade
+        let docRefEightGrade = db.collection("points").document("8th Grade")
+        
+        docRefEightGrade.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    eighthGradePoints = points
+                    print(eighthGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        let docRefFreshman = db.collection("points").document("Freshman")
+        
+        docRefFreshman.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    ninthGradePoints = points
+                    print(ninthGradePoints)
                 }
             } else {
                 print("Document does not exist")
