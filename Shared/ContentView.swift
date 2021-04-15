@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import SwiftUICharts
 
 struct ContentView: View {
     @State var seventhGradePoints = 0
@@ -26,50 +27,67 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 VStack{
-                    Text("Corona Points App")
+                    Group{
+                        Text("Corona Points App")
                         .foregroundColor(.green)
                         .font(.system(.largeTitle, design: .rounded))
                         .fontWeight(.black).padding()
                     
                     //Cards
-                    Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
+                        Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                     
-                    if seventhGradePoints != 0 {
+                        if seventhGradePoints != 0 {
                         PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"))
                     }
                     
-                    if eighthGradePoints != 0 {
+                        if eighthGradePoints != 0 {
                         PointsCard(grade: "Eighth Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"))
                     }
                     
-                    Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
+                        Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
             
-                    if ninthGradePoints != 0 {
+                        if ninthGradePoints != 0 {
                         PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
                     }
                     
                     
-                    PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
+                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
                     
-                    PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
+                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
                     
-                    PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
-                    
+                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
+                    }
+                    Group{
                     //Add Bar Graph here:
+                        let chartStyle = ChartStyle(backgroundColor: Color.black, accentColor: Colors.OrangeStart, secondGradientColor: Color.green, textColor: Color.white, legendTextColor: Color.black, dropShadowColor: Color.white)
+
+                                    
+
+                        Spacer()
+
+                                    
+
+                        BarChartView(data: ChartData(values: [("7th-grade", seventhGradePoints), ("8th-grade", eighthGradePoints), ("9th-grade", ninthGradePoints),
+                            ("10th-grade", tenthGradePoints),
+                            ("11th-grade", eleventhGradePoints),
+                            ("12th-grade", twelfthGradePoints)]), title: "Corona-PointsBar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
+
+
+
+                        Spacer()
                     
                     
                     
-                    
-                    VStack (spacing: 0) {
+                        VStack (spacing: 0) {
                         //Add Upcoming Events section here:
-                        Text("Upcoming Events - Get Hyped")
+                            Text("Upcoming Events - Get Hyped")
                             .font(.system(.title2, design: .rounded))
                             .fontWeight(.bold)
                             .padding()
                         
-                        VStack(spacing: 1) {
-                            ForEach(0..<upcomingEventsList.count) { index in
-                                Text("\(upcomingEventsList[index])")
+                            VStack(spacing: 1) {
+                                ForEach(0..<upcomingEventsList.count) { index in
+                                    Text("\(upcomingEventsList[index])")
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 55)
                                     .background(Color.white)
@@ -85,7 +103,9 @@ struct ContentView: View {
                         
                         
                     }
+                    }
                 }
+                //end of vstack here
                  
                 VStack {
                     

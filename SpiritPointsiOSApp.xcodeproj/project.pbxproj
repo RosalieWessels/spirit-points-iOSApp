@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
 		4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */; };
 		B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */; };
+		F683F8AE26278CFA00BE9F0B /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F683F8AD26278CFA00BE9F0B /* SwiftUICharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */,
+				F683F8AE26278CFA00BE9F0B /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +211,9 @@
 			dependencies = (
 			);
 			name = "SpiritPointsiOSApp (iOS)";
+			packageProductDependencies = (
+				F683F8AD26278CFA00BE9F0B /* SwiftUICharts */,
+			);
 			productName = "SpiritPointsiOSApp (iOS)";
 			productReference = 113DE8E7256C887F00C19DD2 /* SpiritPointsiOSApp.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +306,9 @@
 				Base,
 			);
 			mainGroup = 113DE8DA256C887E00C19DD2;
+			packageReferences = (
+				F683F8AC26278CFA00BE9F0B /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 113DE8E8256C887F00C19DD2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -801,6 +809,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F683F8AC26278CFA00BE9F0B /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F683F8AD26278CFA00BE9F0B /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F683F8AC26278CFA00BE9F0B /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 113DE8DB256C887E00C19DD2 /* Project object */;
 }
