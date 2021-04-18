@@ -10,15 +10,15 @@ import Firebase
 import SwiftUICharts
 
 struct ContentView: View {
-    @State var seventhGradePoints = 0
-    @State var eighthGradePoints = 0
-    @State var ninthGradePoints = 0
-    @State var tenthGradePoints = 13
-    @State var eleventhGradePoints = 24
-    @State var twelfthGradePoints = 4
+    @State var seventhGradePoints = -1
+    @State var eighthGradePoints = -1
+    @State var ninthGradePoints = -1
+    @State var tenthGradePoints = -1
+    @State var eleventhGradePoints = -1
+    @State var twelfthGradePoints = -1
 
+    @State var isAdmin = false
     @State var db = Firestore.firestore()
-    
     
     
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
@@ -26,56 +26,63 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack{
-                    Group{
-                        Text("Corona Points App")
-                        .foregroundColor(.green)
-                        .font(.system(.largeTitle, design: .rounded))
-                        .fontWeight(.black).padding()
-                    
-                    //Cards
+                VStack {
+                    VStack (spacing: 25){
+                        VStack {
+                            Text("Corona Points App")
+                            .foregroundColor(.green)
+                            .font(.system(.largeTitle, design: .rounded))
+                                .fontWeight(.black).padding()
+                            
+                            Image("panthers").resizable().aspectRatio(contentMode: .fit)
+                                .frame(maxWidth: UIScreen.main.bounds.width - 200)
+                        }
+                        
+                        
+                        //Cards
                         Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                     
-                        if seventhGradePoints != 0 {
-                        PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"))
+                        if seventhGradePoints != -1 {
+                        PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdminUser: isAdmin)
                     }
                     
-                        if eighthGradePoints != 0 {
-                        PointsCard(grade: "Eighth Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"))
+                        if eighthGradePoints != -1 {
+                        PointsCard(grade: "Eighth Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdminUser: isAdmin)
                     }
                     
                         Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
             
-                        if ninthGradePoints != 0 {
-                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
+                        if ninthGradePoints != -1 {
+                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdminUser: isAdmin)
                     }
                     
-                    if tenthGradePoints != 0 {
-                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
+                    if tenthGradePoints != -1 {
+                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdminUser: isAdmin)
                     }
                     
-                    if eleventhGradePoints != 0 {
-                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
+                    if eleventhGradePoints != -1 {
+                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdminUser: isAdmin)
                     }
                     
-                    if twelfthGradePoints != 0 {
-                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
+                    if twelfthGradePoints != -1 {
+                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdminUser: isAdmin)
                     }
                     Group{
                     //Add Bar Graph here:
                         let chartStyle = ChartStyle(backgroundColor: Color.black, accentColor: Colors.OrangeStart, secondGradientColor: Color.green, textColor: Color.white, legendTextColor: Color.black, dropShadowColor: Color.white)
 
-                                    
-
+                    
                         Spacer()
 
-                                    
+                        if twelfthGradePoints != -1 && eleventhGradePoints != -1 && tenthGradePoints != -1 && ninthGradePoints != -1 && eighthGradePoints != -1 && seventhGradePoints != -1 {
+                            BarChartView(data: ChartData(values: [("7th-grade", seventhGradePoints), ("8th-grade", eighthGradePoints), ("9th-grade", ninthGradePoints),
+                                ("10th-grade", tenthGradePoints),
+                                ("11th-grade", eleventhGradePoints),
+                                ("12th-grade", twelfthGradePoints)]), title: "Corona-PointsBar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
 
-                        BarChartView(data: ChartData(values: [("7th-grade", seventhGradePoints), ("8th-grade", eighthGradePoints), ("9th-grade", ninthGradePoints),
-                            ("10th-grade", tenthGradePoints),
-                            ("11th-grade", eleventhGradePoints),
-                            ("12th-grade", twelfthGradePoints)]), title: "Corona-PointsBar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
+                        }
 
+                        
 
 
                         Spacer()
@@ -106,6 +113,7 @@ struct ContentView: View {
                         .padding()
                         
                         
+                    }
                     }
                     }
                 }
@@ -217,7 +225,7 @@ struct ContentView: View {
         }
         
         // Sophomore
-        let docRefSophomore = db.collection("points").document("Sophomore")
+        let docRefSophomore = db.collection("points").document("Sophomores")
         
         docRefSophomore.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -277,7 +285,7 @@ struct PointsCard: View {
     @State var is_winner: Bool
     
     @State var changingPoints: String = ""
-    @State var isAdminUser: Bool = true
+    @State var isAdminUser: Bool
     
     var body: some View {
         VStack {
@@ -285,7 +293,7 @@ struct PointsCard: View {
             ZStack {
                 Rectangle()
                     .fill(Color.green)
-                    .frame(width:352, height:65)
+                    .frame(width: UIScreen.main.bounds.width - 60)
                     .padding(-30)
                 
                 HStack {
@@ -299,15 +307,31 @@ struct PointsCard: View {
                         .font(.system(.title2,design: .rounded))
                 }
             }
+            .padding(.bottom)
             
             
             VStack (alignment: .leading){
                 
-                Text("Number of Points:")
-                    .bold()
-                    .padding(.bottom, 5)
+                Spacer()
+                        .frame(height: 30)
                 
-                Text(String(points))
+                HStack {
+                    Text("Number of Points:")
+                        .bold()
+                        .padding(.bottom, 6)
+                    
+                    Spacer()
+                }
+                
+                HStack {
+                    Text(String(points))
+                }
+                
+                Spacer()
+                        .frame(height: 30)
+                
+                
+                
                 
                 if isAdminUser {
                     HStack{
@@ -349,7 +373,7 @@ struct PointsCard: View {
                 }
             }
             .padding()
-            .frame(minWidth: 0, maxWidth:.infinity, minHeight: 200)
+            .frame(minWidth: 0, maxWidth:.infinity)
             
             .overlay(Rectangle().stroke(Color.green, lineWidth: 2))
             .padding(.horizontal)
