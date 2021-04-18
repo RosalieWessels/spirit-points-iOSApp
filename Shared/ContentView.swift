@@ -48,12 +48,17 @@ struct ContentView: View {
                         PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"))
                     }
                     
+                    if tenthGradePoints != 0 {
+                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
+                    }
                     
-                    PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"))
+                    if eleventhGradePoints != 0 {
+                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
+                    }
                     
-                    PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"))
-                    
-                    PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
+                    if twelfthGradePoints != 0 {
+                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"))
+                    }
                     
                     //Add Bar Graph here:
                     
@@ -126,6 +131,9 @@ struct ContentView: View {
         else {
             winnerHS = "Seniors"
         }
+        print(winnerHS)
+        print(grade)
+        print(winnerHS == grade)
         return grade == winnerHS
     }
     
@@ -137,8 +145,6 @@ struct ContentView: View {
         else {
             winnerJH = "Eighth Grade"
         }
-        print(winnerJH)
-        print(winnerJH == grade)
         return grade == winnerJH
     }
     
@@ -176,6 +182,7 @@ struct ContentView: View {
             }
         }
         
+        // Freshman
         let docRefFreshman = db.collection("points").document("Freshman")
         
         docRefFreshman.getDocument { (document, error) in
@@ -189,6 +196,52 @@ struct ContentView: View {
                 print("Document does not exist")
             }
         }
+        
+        // Sophomore
+        let docRefSophomore = db.collection("points").document("Sophomore")
+        
+        docRefSophomore.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    tenthGradePoints = points
+                    print(tenthGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        // Juniors
+        let docRefJunior = db.collection("points").document("Juniors")
+        
+        docRefJunior.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    eleventhGradePoints = points
+                    print(eleventhGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        // Seniors
+        let docRefSenior = db.collection("points").document("Seniors")
+        
+        docRefSenior.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let points = document.get("points") as? Int {
+                    print("FOUND THE DATA")
+                    twelfthGradePoints = points
+                    print(twelfthGradePoints)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
     }
     
 }
