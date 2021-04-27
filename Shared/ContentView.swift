@@ -20,6 +20,9 @@ struct ContentView: View {
     @State var isAdmin = false
     @State var db = Firestore.firestore()
     
+    @State var isAdminUser = true
+    @State var newUpcomingEvent = ""
+    
     
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
@@ -111,6 +114,32 @@ struct ContentView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                         .padding()
+                            
+                            if isAdminUser {
+                                HStack{
+                                    Spacer()
+                                    TextField("new upcoming event", text: $newUpcomingEvent)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
+                                    Button(action: {addUpcomingEvent()}){
+                                        ZStack {
+                                            Rectangle()
+                                                .fill(Color.green)
+                                                .frame(width:40, height:40)
+                                                .cornerRadius(10)
+                                            
+                                            Text("+")
+                                                .foregroundColor(.white)
+                                                .font(.system(size:35))
+                                                .bold()
+                                                .padding(.bottom, 5)
+                                        }
+                                    }
+                                    .padding()
+                                    
+                                    Spacer()
+                                }
+                            }
                         
                         
                     }
@@ -141,6 +170,10 @@ struct ContentView: View {
                 .navigationBarHidden(true)
             }
         }
+    }
+    
+    func addUpcomingEvent(){
+        upcomingEventsList.insert(newUpcomingEvent, at: 0)
     }
     
     //Finding grade with the least amount of points (current winners)
