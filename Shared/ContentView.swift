@@ -20,7 +20,6 @@ struct ContentView: View {
     @State var isAdmin = false
     @State var db = Firestore.firestore()
     
-    @State var isAdminUser = true
     @State var newUpcomingEvent = ""
     
     
@@ -46,29 +45,29 @@ struct ContentView: View {
                         Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                     
                         if seventhGradePoints != -1 {
-                        PointsCard(grade: "Seventh Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdminUser: isAdmin)
+                        PointsCard(grade: "7th Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdmin: isAdmin)
                     }
                     
                         if eighthGradePoints != -1 {
-                        PointsCard(grade: "Eighth Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdminUser: isAdmin)
+                        PointsCard(grade: "8th Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdmin: isAdmin)
                     }
                     
                         Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
             
                         if ninthGradePoints != -1 {
-                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdminUser: isAdmin)
+                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdmin: isAdmin)
                     }
                     
                     if tenthGradePoints != -1 {
-                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdminUser: isAdmin)
+                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdmin: isAdmin)
                     }
                     
                     if eleventhGradePoints != -1 {
-                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdminUser: isAdmin)
+                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdmin: isAdmin)
                     }
                     
                     if twelfthGradePoints != -1 {
-                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdminUser: isAdmin)
+                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdmin: isAdmin)
                     }
                     Group{
                     //Add Bar Graph here:
@@ -115,7 +114,7 @@ struct ContentView: View {
                         )
                         .padding()
                             
-                            if isAdminUser {
+                            if isAdmin {
                                 HStack{
                                     Spacer()
                                     TextField("new upcoming event", text: $newUpcomingEvent)
@@ -158,6 +157,17 @@ struct ContentView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
                     )
+                    
+                    if isAdmin {
+                        NavigationLink(destination: HistoryView()) {
+                            Text("History")
+                                .foregroundColor(.green)
+                        }
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                            )
+                    }
                     
                     Text("@ Pinewood 2021 Tech Club").padding(.top, 20)
                     
@@ -316,9 +326,10 @@ struct PointsCard: View {
     @State var grade: String
     @State var points: Int
     @State var is_winner: Bool
+    @State var db = Firestore.firestore()
     
     @State var changingPoints: String = ""
-    @State var isAdminUser: Bool
+    @State var isAdmin: Bool
     
     var body: some View {
         VStack {
@@ -366,7 +377,7 @@ struct PointsCard: View {
                 
                 
                 
-                if isAdminUser {
+                if isAdmin {
                     HStack{
                         
                         TextField("# of points added", text:$changingPoints)
@@ -413,14 +424,63 @@ struct PointsCard: View {
         }
         .padding()
     }
+    
     func add_points(points1: Int) {
-        guard let changingPoints = Int(changingPoints) else { return }
-        points = points + changingPoints
+        guard let changingPointsInt = Int(changingPoints) else { return }
+        print(changingPoints)
+        
+        let pointsRef = db.collection("points").document(grade)
+
+        // Set the "capital" field of the city 'DC'
+        pointsRef.updateData([
+            "points": (points + changingPointsInt)
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+                
+            } else {
+                print("Document successfully updated")
+                getPointsForGrade()
+                changingPoints = ""
+            }
+        }
     }
 
     func sub_points(points1: Int) {
-        guard let changingPoints = Int(changingPoints) else { return }
-        points = points - changingPoints
+        guard let changingPointsInt = Int(changingPoints) else { return }
+        
+        let pointsRef = db.collection("points").document(grade)
+
+        // Set the "capital" field of the city 'DC'
+        pointsRef.updateData([
+            "points": (points - changingPointsInt)
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+                
+            } else {
+                print("Document successfully updated")
+                getPointsForGrade()
+                changingPoints = ""
+            }
+        }
+        
+    }
+    
+    func getPointsForGrade() {
+        let docRef = db.collection("points").document(grade)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                if let firebasePoints = document.get("points") as? Int {
+                    points = firebasePoints
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
 }
 
