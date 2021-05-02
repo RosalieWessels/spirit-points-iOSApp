@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var eleventhGradePoints = -1
     @State var twelfthGradePoints = -1
 
-    @State var isAdmin = false
+    @State var isAdmin = true
     @State var db = Firestore.firestore()
     
     @State var newUpcomingEvent = ""
@@ -161,6 +161,15 @@ struct ContentView: View {
                     if isAdmin {
                         NavigationLink(destination: HistoryView()) {
                             Text("History")
+                                .foregroundColor(.green)
+                        }
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                            )
+                        
+                        NavigationLink(destination: UsersView()) {
+                            Text("See Users")
                                 .foregroundColor(.green)
                         }
                         .padding()
