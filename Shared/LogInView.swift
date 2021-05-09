@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Firebase
+import Combine
 
 struct LogInView: View {
+    @ObservedObject var model : ModelData
     @State var username = ""
     @State var password = ""
     @State var showSuccessfulAlert = false
@@ -16,6 +19,17 @@ struct LogInView: View {
     var body: some View {
         
         VStack{
+            HStack {
+                Spacer()
+                Button(action: {
+                    model.isLogIn.toggle()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.black)
+                        .font(.title)
+                }
+                .padding()
+            }
             Spacer()
             HStack {
                 Text ("Username")
@@ -26,7 +40,7 @@ struct LogInView: View {
             
             .padding(.leading)
             
-            TextField("Username", text: $username)
+            TextField("Username", text: $model.email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .padding(.bottom,50)
@@ -39,7 +53,7 @@ struct LogInView: View {
                 
             }.padding(.leading)
             
-            SecureField("Password", text: $password)
+            SecureField("Password", text: $model.password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .padding(.bottom,50)
@@ -56,44 +70,123 @@ struct LogInView: View {
             
             
             
-            Button(action: {checkLogin()}) {
+            Button(action: model.login) {
                 Text("Submit").foregroundColor(.green)
             }
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
             )
-            .alert(isPresented: $showSuccessfulAlert) {
-                Alert(
-                    title: Text("Login successful!"),
-                    message: Text("Your login was successful!"),
-                    dismissButton: .default(Text("Take me back to the home screen")) {
-                        print("Log In")
-                    }
-                )
-            }
+//            .alert(isPresented: $model.alert, content: {
+//                Alert(title: Text("Message"), message: Text(model.alertMsg), dismissButton: .destructive(Text("Ok")))
+//            })
 
             
             Spacer()
         }
-        
         .navigationBarTitle("Admin Login", displayMode: .inline)
-    }
-    
-    func checkLogin() {
-        if username == "admin123" && password == "password" {
-            print("That checks out")
-            showSuccessfulAlert=true
-        }
-        else {
-            print ("Thats not right")
-            showUnsuccessfulAlert=true
-        }
+        .alert(isPresented: $model.alert, content: {
+            Alert(title: Text("Message"), message: Text(model.alertMsg), dismissButton: .destructive(Text("Ok"), action: {
+                
+                if model.alertMsg == "You are logged in!"{
+                    model.isLogIn.toggle()
+                    
+                }
+                
+            }))
+        })
     }
 }
 
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogInView()
+
+class ModelData : ObservableObject {
+    
+    @Published var email = ""
+    @Published var password = ""
+    @Published var isLogIn = false
+    
+    @Published var alert = false
+    @Published var alertMsg = ""
+    
+    @AppStorage("log_Status") var status = DefaultStatus.status
+    
+    @Published var isLoading = false
+    
+    func login() {
+        
+        if email == "" || password == "" {
+            self.alertMsg = "Please fill the text boxes"
+            self.alert.toggle()
+            return
+        }
+        
+        withAnimation {
+            self.isLoading.toggle()
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+            
+            withAnimation {
+                self.isLoading.toggle()
+            }
+            
+            if err != nil {
+                self.alertMsg = err!.localizedDescription
+                self.alert.toggle()
+                return
+            }
+            
+            let user = Auth.auth().currentUser
+            print("Logged in!")
+            
+            
+            
+            withAnimation {
+                
+                self.status = true
+                self.alertMsg = "You are logged in!"
+                self.alert.toggle()
+                
+            }
+            
+        }
     }
+    
+    func logOut() {
+        try! Auth.auth().signOut()
+        
+        withAnimation {
+            self.status = false
+        }
+        
+        email = ""
+        password = ""
+    }
+}
+
+struct LoadingView: View {
+    @State var animation = false
+    var body: some View {
+        VStack {
+            Circle()
+                .trim(from: 0, to: 0.7)
+                .stroke(Color.black, lineWidth: 8)
+                .frame(width: 75, height: 75)
+                .rotationEffect(.init(degrees: animation ? 360 : 0))
+                .padding(50)
+        }
+        .background(Color.white)
+        .cornerRadius(20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.4).ignoresSafeArea(.all, edges: .all))
+        .onAppear(perform: {
+            withAnimation(Animation.linear(duration: 1)) {
+                animation.toggle()
+            }
+        })
+    }
+}
+
+enum DefaultStatus {
+    static let status = false
 }

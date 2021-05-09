@@ -22,6 +22,9 @@ struct ContentView: View {
     
     @State var newUpcomingEvent = ""
     
+    @AppStorage("log_Status") var status = DefaultStatus.status
+    @State var user = Auth.auth().currentUser
+    @StateObject var model = ModelData()
     
     @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
     
@@ -149,14 +152,20 @@ struct ContentView: View {
                  
                 VStack {
                     
-                    NavigationLink(destination: LogInView()) {
-                        Text("Admin")
-                            .foregroundColor(.green)
+                    if isAdmin != true {
+                        Button(action: {
+                            model.isLogIn.toggle()
+                        }) {
+                            Text("Admin")
+                                .foregroundColor(.green)
+                        }
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                        )
                     }
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
-                    )
+                    
+                    
                     
                     if isAdmin {
                         NavigationLink(destination: HistoryView()) {
@@ -176,19 +185,42 @@ struct ContentView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
                             )
+                        
+                        Button(action: {
+                            model.logOut()
+                            isAdmin = false
+                        }) {
+                            Text("Log out")
+                                .foregroundColor(.black)
+                                .fontWeight(.heavy)
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(25)
+                        .shadow(radius:3)
                     }
                     
-                    Text("@ Pinewood 2021 Tech Club").padding(.top, 20)
+                    Text("@Pinewood 2021 Tech Club").padding(.top, 20)
                     
                 }
-                .onAppear(perform: {
-                    getPoints()
-                    //findWinningGradeHS()
-                })
+                
                 .navigationTitle("")
                 .navigationBarHidden(true)
             }
         }
+        .fullScreenCover(isPresented: $model.isLogIn, content: {
+                    LogInView(model: model)
+                })
+        .onAppear(perform: {
+            getPoints()
+            //findWinningGradeHS()
+            if status == true {
+                isAdmin = true
+            }
+            else {
+                isAdmin = false
+            }
+        })
     }
     
     func addUpcomingEvent(){
