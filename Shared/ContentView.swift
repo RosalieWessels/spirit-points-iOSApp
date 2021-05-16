@@ -17,12 +17,12 @@ struct ContentView: View {
     @State var eleventhGradePoints = -1
     @State var twelfthGradePoints = -1
 
-    @State var isAdmin = true
     @State var db = Firestore.firestore()
     
     @State var newUpcomingEvent = ""
     
     @AppStorage("log_Status") var status = DefaultStatus.status
+    @AppStorage("log_IsAdmin") var isAdmin = false
     @State var user = Auth.auth().currentUser
     @StateObject var model = ModelData()
     
@@ -48,30 +48,31 @@ struct ContentView: View {
                         Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                     
                         if seventhGradePoints != -1 {
-                        PointsCard(grade: "7th Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdmin: isAdmin)
-                    }
-                    
+                            PointsCard(grade: "7th Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdmin: $isAdmin)
+                        }
+                        
                         if eighthGradePoints != -1 {
-                        PointsCard(grade: "8th Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdmin: isAdmin)
-                    }
-                    
+                            PointsCard(grade: "8th Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdmin: $isAdmin)
+                        }
+                        
                         Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-            
+                
                         if ninthGradePoints != -1 {
-                        PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdmin: isAdmin)
-                    }
-                    
-                    if tenthGradePoints != -1 {
-                        PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdmin: isAdmin)
-                    }
-                    
-                    if eleventhGradePoints != -1 {
-                        PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdmin: isAdmin)
-                    }
-                    
-                    if twelfthGradePoints != -1 {
-                        PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdmin: isAdmin)
-                    }
+                            PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdmin: $isAdmin)
+                        }
+                        
+                        if tenthGradePoints != -1 {
+                            PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdmin: $isAdmin)
+                        }
+                        
+                        if eleventhGradePoints != -1 {
+                            PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdmin: $isAdmin)
+                        }
+                        
+                        if twelfthGradePoints != -1 {
+                            PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdmin: $isAdmin)
+                        }
+                        
                     Group{
                     //Add Bar Graph here:
                         let chartStyle = ChartStyle(backgroundColor: Color.black, accentColor: Colors.OrangeStart, secondGradientColor: Color.green, textColor: Color.white, legendTextColor: Color.black, dropShadowColor: Color.white)
@@ -188,17 +189,15 @@ struct ContentView: View {
                         
                         Button(action: {
                             model.logOut()
-                            isAdmin = false
+                            checkState()
                         }) {
                             Text("Log out")
-                                .foregroundColor(.black)
-                                .fontWeight(.heavy)
+                                .foregroundColor(.green)
                         }
                         .padding()
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .shadow(radius:3)
-                    }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
+                            )                    }
                     
                     Text("@Pinewood 2021 Tech Club").padding(.top, 20)
                     
@@ -214,13 +213,20 @@ struct ContentView: View {
         .onAppear(perform: {
             getPoints()
             //findWinningGradeHS()
-            if status == true {
-                isAdmin = true
-            }
-            else {
-                isAdmin = false
-            }
+            checkState()
         })
+    }
+    
+    func checkState() {
+        print("CHECK STATE")
+        if status == true {
+            isAdmin = true
+            print("LOGGED IN")
+            print("IS ADMIN", isAdmin)
+        }
+        else {
+            isAdmin = false
+        }
     }
     
     func addUpcomingEvent(){
@@ -368,9 +374,9 @@ struct PointsCard: View {
     @State var points: Int
     @State var is_winner: Bool
     @State var db = Firestore.firestore()
+    @Binding public var isAdmin : Bool
     
     @State var changingPoints: String = ""
-    @State var isAdmin: Bool
     
     var body: some View {
         VStack {
@@ -418,7 +424,7 @@ struct PointsCard: View {
                 
                 
                 
-                if isAdmin {
+                if isAdmin == true {
                     HStack{
                         
                         TextField("# of points added", text:$changingPoints)
@@ -453,8 +459,7 @@ struct PointsCard: View {
                                     .padding(.bottom, 5)
                             }
                         }
-                }
-                
+                    }
                 }
             }
             .padding()

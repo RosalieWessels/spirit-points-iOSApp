@@ -11,13 +11,10 @@ import Combine
 
 struct LogInView: View {
     @ObservedObject var model : ModelData
-    @State var username = ""
-    @State var password = ""
     @State var showSuccessfulAlert = false
     @State var showUnsuccessfulAlert = false
     
     var body: some View {
-        
         VStack{
             HStack {
                 Spacer()
@@ -43,6 +40,7 @@ struct LogInView: View {
             TextField("Username", text: $model.email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .textCase(.lowercase)
                 .padding(.bottom,50)
             
             HStack {
@@ -57,6 +55,7 @@ struct LogInView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .padding(.bottom,50)
+                .textCase(.lowercase)
                 .alert(isPresented: $showUnsuccessfulAlert){
                     Alert(
                         title: Text("Login Unsuccessful"),
@@ -146,6 +145,8 @@ class ModelData : ObservableObject {
                 self.status = true
                 self.alertMsg = "You are logged in!"
                 self.alert.toggle()
+                let contentview = ContentView()
+                contentview.checkState()
                 
             }
             
