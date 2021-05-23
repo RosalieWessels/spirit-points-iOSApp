@@ -26,7 +26,7 @@ struct ContentView: View {
     @State var user = Auth.auth().currentUser
     @StateObject var model = ModelData()
     
-    @State var upcomingEventsList = ["Crazy Hair Day (February 8th)", "Talent Show", "Valentine's Exchange", "Spring Break", "Green/Gold dress day"]
+    @State var upcomingEventsList = ["fake event"]
     
     var body: some View {
         NavigationView {
@@ -100,22 +100,24 @@ struct ContentView: View {
                             .font(.system(.title2, design: .rounded))
                             .fontWeight(.bold)
                             .padding()
-                        
-                            VStack(spacing: 1) {
-                                ForEach(0..<upcomingEventsList.count) { index in
-                                    Text("\(upcomingEventsList[index])")
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 55)
-                                    .background(Color.white)
-                                
+                            
+                            if upcomingEventsList[0] != "fake event" {
+                                VStack(spacing: 1) {
+                                    ForEach(0..<upcomingEventsList.count) { index in
+                                        Text("\(upcomingEventsList[index])")
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 55)
+                                        .background(Color.white)
+                                    
+                                }
                             }
+                            .background(Color.gray)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                            .padding()
                         }
-                        .background(Color.gray)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
-                        .padding()
                             
                             if isAdmin {
                                 HStack{
@@ -213,6 +215,7 @@ struct ContentView: View {
                 })
         .onAppear(perform: {
             getPoints()
+            pullUpcomingEvents()
             //findWinningGradeHS()
             if status == true {
                 isAdmin = true
@@ -224,7 +227,35 @@ struct ContentView: View {
     }
     
     func addUpcomingEvent(){
-        upcomingEventsList.insert(newUpcomingEvent, at: 0)
+        db.collection("upcoming events").document(newUpcomingEvent).setData([
+            "NameAndDate": newUpcomingEvent
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+                upcomingEventsList = []
+                upcomingEventsList.insert("fake event", at: 0)
+                pullUpcomingEvents()
+            }
+        }
+    }
+    
+    func pullUpcomingEvents(){
+        db.collection("upcoming events")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        if let title = document.get("NameAndDate") as? String{
+                            upcomingEventsList.append(title)
+                        }
+                    }
+                    upcomingEventsList.remove(at:0)
+                }
+        }
+
     }
     
     //Finding grade with the least amount of points (current winners)
