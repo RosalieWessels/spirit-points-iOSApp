@@ -2,7 +2,7 @@
 //  HistoryView.swift
 //  SpiritPointsiOSApp
 //
-//  Created by Rosalie Wessels on 4/27/21.
+//  Created by Tech Club on 4/27/21.
 //
 
 import SwiftUI

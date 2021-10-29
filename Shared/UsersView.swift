@@ -2,7 +2,7 @@
 //  UsersView.swift
 //  SpiritPointsiOSApp
 //
-//  Created by Rosalie Wessels on 5/1/21.
+//  Created by Tech Club on 5/1/21.
 //
 
 import SwiftUI
