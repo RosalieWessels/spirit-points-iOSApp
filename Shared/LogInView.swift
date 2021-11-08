@@ -2,7 +2,7 @@
 //  LogInView.swift
 //  SpiritPointsiOSApp
 //
-//  Created by Rosalie Wessels on 3/24/21.
+//  Created by Tech Club on 3/24/21.
 //
 
 import SwiftUI
