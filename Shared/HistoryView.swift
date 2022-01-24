@@ -32,7 +32,7 @@ struct HistoryView: View {
 
                 }
         }
-        
+            .padding(.horizontal, 20)
         }
         .onAppear(perform: {
             getHistory()
@@ -62,7 +62,7 @@ struct HistoryView: View {
                             }
                         }
                     }
-                    if historyList.count >= 2 {
+                    if historyList.count >= 1 {
                         historyList.remove(at: 0)
                     }
                 }

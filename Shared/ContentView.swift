@@ -16,6 +16,15 @@ struct ContentView: View {
     @State var tenthGradePoints = -1
     @State var eleventhGradePoints = -1
     @State var twelfthGradePoints = -1
+    
+    @State var iswinner_7th = false
+    @State var iswinner_8th = false
+    @State var iswinner_9th = false
+    @State var iswinner_10th = false
+    @State var iswinner_11th = false
+    @State var iswinner_12th = false
+    
+    @State var refreshBarGraph = false
 
     @State var db = Firestore.firestore()
     
@@ -34,7 +43,7 @@ struct ContentView: View {
                 VStack {
                     VStack (spacing: 25){
                         VStack {
-                            Text("Corona Points App")
+                            Text("Spirits Points App")
                             .foregroundColor(.green)
                             .font(.system(.largeTitle, design: .rounded))
                                 .fontWeight(.black).padding()
@@ -48,29 +57,29 @@ struct ContentView: View {
                         Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                     
                         if seventhGradePoints != -1 {
-                            PointsCard(grade: "7th Grade", points: seventhGradePoints, is_winner: isWinnerJH(grade:"Seventh Grade"), isAdmin: $isAdmin)
+                            PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin)
                         }
                         
                         if eighthGradePoints != -1 {
-                            PointsCard(grade: "8th Grade", points: eighthGradePoints, is_winner: isWinnerJH(grade:"Eighth Grade"), isAdmin: $isAdmin)
+                            PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin)
                         }
                         
                         Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
                 
                         if ninthGradePoints != -1 {
-                            PointsCard(grade: "Freshman", points: ninthGradePoints, is_winner: isWinnerHS(grade:"Freshman"), isAdmin: $isAdmin)
+                            PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin)
                         }
                         
                         if tenthGradePoints != -1 {
-                            PointsCard(grade: "Sophomores", points: tenthGradePoints, is_winner: isWinnerHS(grade:"Sophomores"), isAdmin: $isAdmin)
+                            PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin)
                         }
                         
                         if eleventhGradePoints != -1 {
-                            PointsCard(grade: "Juniors", points: eleventhGradePoints, is_winner: isWinnerHS(grade:"Juniors"), isAdmin: $isAdmin)
+                            PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin)
                         }
                         
                         if twelfthGradePoints != -1 {
-                            PointsCard(grade: "Seniors", points: twelfthGradePoints, is_winner: isWinnerHS(grade:"Seniors"), isAdmin: $isAdmin)
+                            PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin)
                         }
                         
                     Group{
@@ -80,11 +89,11 @@ struct ContentView: View {
                     
                         Spacer()
 
-                        if twelfthGradePoints != -1 && eleventhGradePoints != -1 && tenthGradePoints != -1 && ninthGradePoints != -1 && eighthGradePoints != -1 && seventhGradePoints != -1 {
+                        if twelfthGradePoints != -1 && eleventhGradePoints != -1 && tenthGradePoints != -1 && ninthGradePoints != -1 && eighthGradePoints != -1 && seventhGradePoints != -1 && refreshBarGraph == false {
                             BarChartView(data: ChartData(values: [("7th-grade", seventhGradePoints), ("8th-grade", eighthGradePoints), ("9th-grade", ninthGradePoints),
                                 ("10th-grade", tenthGradePoints),
                                 ("11th-grade", eleventhGradePoints),
-                                ("12th-grade", twelfthGradePoints)]), title: "Corona-PointsBar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
+                                ("12th-grade", twelfthGradePoints)]), title: "Spirit Points Bar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
 
                         }
 
@@ -102,23 +111,31 @@ struct ContentView: View {
                             .fontWeight(.bold)
                             .padding()
                             
+                            
+                            
                             if upcomingEventsList[0] != "fake event" {
+                                
                                 VStack(spacing: 1) {
-                                    ForEach(0..<upcomingEventsList.count) { index in
-                                        Text("\(upcomingEventsList[index])")
+                                    ForEach(upcomingEventsList, id: \.self) { event in
+                                        Text("\(event)")
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 55)
                                         .background(Color.white)
-                                    
+
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 55)
+                                    .background(Color.white)
                                 }
+                                .background(Color.gray)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                )
+                                .padding()
+                                
                             }
-                            .background(Color.gray)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            .padding()
-                        }
+                    
                             
                             if isAdmin {
                                 HStack{
@@ -199,9 +216,11 @@ struct ContentView: View {
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
-                            )                    }
+                            )
+                        
+                    }
                     
-                    Text("@Pinewood 2021 Tech Club").padding(.top, 20)
+                    Text("@Pinewood 2022 Tech Club").padding(.top, 20)
                     
                 }
                 
@@ -209,6 +228,7 @@ struct ContentView: View {
                 .navigationBarHidden(true)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .fullScreenCover(isPresented: $model.isLogIn, content: {
                     LogInView(model: model)
                 })
@@ -240,156 +260,208 @@ struct ContentView: View {
                 print("Error writing document: \(err)")
             } else {
                 print("Document successfully written!")
-                upcomingEventsList = []
                 upcomingEventsList.insert("fake event", at: 0)
                 pullUpcomingEvents()
+                newUpcomingEvent = ""
             }
         }
     }
     
     func pullUpcomingEvents(){
+//        db.collection("upcoming events")
+//            .getDocuments() { (querySnapshot, err) in
+//                if let err = err {
+//                    print("Error getting documents: \(err)")
+//                } else {
+//                    for document in querySnapshot!.documents {
+//                        if let title = document.get("NameAndDate") as? String{
+//                            upcomingEventsList.append(title)
+//                        }
+//                    }
+//                    upcomingEventsList.remove(at:0)
+//                }
+//        }
+        
         db.collection("upcoming events")
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        if let title = document.get("NameAndDate") as? String{
-                            upcomingEventsList.append(title)
-                        }
-                    }
-                    upcomingEventsList.remove(at:0)
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
                 }
-        }
+                upcomingEventsList = ["fake event"]
+                //success
+                for document in querySnapshot!.documents {
+                    if let title = document.get("NameAndDate") as? String{
+                        upcomingEventsList.append(title)
+                    }
+                }
+                upcomingEventsList.remove(at:0)
+                print(upcomingEventsList)
+            }
 
     }
     
     //Finding grade with the least amount of points (current winners)
-    func isWinnerHS(grade: String) -> Bool{
-        var winnerHS = ""
-        if ninthGradePoints <= tenthGradePoints && ninthGradePoints <= eleventhGradePoints && ninthGradePoints <= twelfthGradePoints{
-            winnerHS = "Freshman"
+    func findWinnerHS() {
+        if ninthGradePoints >= tenthGradePoints && ninthGradePoints >= eleventhGradePoints && ninthGradePoints >= twelfthGradePoints{
+            iswinner_9th = true
+            iswinner_10th = false
+            iswinner_11th = false
+            iswinner_12th = false
+            
         }
-        else if tenthGradePoints <= ninthGradePoints && tenthGradePoints <= eleventhGradePoints && tenthGradePoints <= twelfthGradePoints{
-            winnerHS = "Sophomores"
+        else if tenthGradePoints >= ninthGradePoints && tenthGradePoints >= eleventhGradePoints && tenthGradePoints >= twelfthGradePoints{
+            iswinner_9th = false
+            iswinner_10th = true
+            iswinner_11th = false
+            iswinner_12th = false
         }
-        else if eleventhGradePoints <= ninthGradePoints && eleventhGradePoints <= tenthGradePoints && eleventhGradePoints <= twelfthGradePoints {
-            winnerHS = "Juniors"
+        else if eleventhGradePoints >= ninthGradePoints && eleventhGradePoints >= tenthGradePoints && eleventhGradePoints >= twelfthGradePoints {
+            iswinner_9th = false
+            iswinner_10th = false
+            iswinner_11th = true
+            iswinner_12th = false
         }
         else {
-            winnerHS = "Seniors"
+            iswinner_9th = false
+            iswinner_10th = false
+            iswinner_11th = false
+            iswinner_12th = true
         }
-        print(winnerHS)
-        print(grade)
-        print(winnerHS == grade)
-        return grade == winnerHS
     }
     
-    func isWinnerJH(grade: String) -> Bool{
-        var winnerJH = ""
-        if seventhGradePoints <= eighthGradePoints{
-            winnerJH = "Seventh Grade"
+    func findWinnerJH() {
+        if seventhGradePoints >= eighthGradePoints{
+            iswinner_7th = true
+            iswinner_8th = false
         }
         else {
-            winnerJH = "Eighth Grade"
+            iswinner_7th = false
+            iswinner_8th = true
         }
-        return grade == winnerJH
     }
+    
+    func refreshBarGraphFunction() {
+        refreshBarGraph = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            refreshBarGraph = false
+        }
+    }
+    
     
     func getPoints() {
         
-        //7th Grade
-        let docRefSeventhGrade = db.collection("points").document("7th Grade")
-
-        docRefSeventhGrade.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    seventhGradePoints = points
-                    print(seventhGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        db.collection("points").document("7th Grade")
+        .addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                seventhGradePoints = points
+                print(seventhGradePoints)
+                findWinnerJH()
+                refreshBarGraphFunction()
             }
         }
         
         //8th Grade
         let docRefEightGrade = db.collection("points").document("8th Grade")
         
-        docRefEightGrade.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    eighthGradePoints = points
-                    print(eighthGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        docRefEightGrade.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                eighthGradePoints = points
+                print(eighthGradePoints)
+                findWinnerJH()
+                refreshBarGraphFunction()
             }
         }
         
         // Freshman
         let docRefFreshman = db.collection("points").document("Freshman")
         
-        docRefFreshman.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    ninthGradePoints = points
-                    print(ninthGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        docRefFreshman.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                ninthGradePoints = points
+                print(ninthGradePoints)
+                findWinnerHS()
+                refreshBarGraphFunction()
             }
         }
         
         // Sophomore
         let docRefSophomore = db.collection("points").document("Sophomores")
         
-        docRefSophomore.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    tenthGradePoints = points
-                    print(tenthGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        docRefSophomore.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                tenthGradePoints = points
+                print(tenthGradePoints)
+                findWinnerHS()
+                refreshBarGraphFunction()
             }
         }
         
         // Juniors
         let docRefJunior = db.collection("points").document("Juniors")
         
-        docRefJunior.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    eleventhGradePoints = points
-                    print(eleventhGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        docRefJunior.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                eleventhGradePoints = points
+                print(eleventhGradePoints)
+                findWinnerHS()
+                refreshBarGraphFunction()
             }
         }
         
         // Seniors
         let docRefSenior = db.collection("points").document("Seniors")
         
-        docRefSenior.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let points = document.get("points") as? Int {
-                    print("FOUND THE DATA")
-                    twelfthGradePoints = points
-                    print(twelfthGradePoints)
-                }
-            } else {
-                print("Document does not exist")
+        docRefSenior.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+            print("Document data: \(dataDescription)")
+            if let points = document.get("points") as? Int {
+                print("FOUND THE DATA")
+                twelfthGradePoints = points
+                print(twelfthGradePoints)
+                findWinnerHS()
+                refreshBarGraphFunction()
             }
         }
-        
     }
     
 }
@@ -402,8 +474,8 @@ struct ContentView_Previews: PreviewProvider {
 
 struct PointsCard: View {
     @State var grade: String
-    @State var points: Int
-    @State var is_winner: Bool
+    @Binding var points: Int
+    @Binding var is_winner: Bool
     @State var db = Firestore.firestore()
     @Binding public var isAdmin : Bool
     
@@ -560,4 +632,5 @@ struct PointsCard: View {
         }
     }
 }
+
 

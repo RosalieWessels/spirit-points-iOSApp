@@ -6,38 +6,45 @@
 //
 
 import SwiftUI
+import Firebase
+import grpc
 
 struct UsersView: View {
+    @State var users : [String] = ["fake"]
+    @State var db = Firestore.firestore()
+    
     var body: some View {
         VStack {
-            Text("Manage Users:")
+            Text("Current Users:")
                 .font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-            VStack {
-                Text("jbruno@pinewood.edu")
-                Text("hmark@pinewood.edu")
-                Text("glemmon@pinewood.edu")
-                Text("etyson@pinewood.edu")
-                Text("23rwessels@pinewood.edu")
-                Text("22mpistelak@pinewood.edu")
-            }
-            VStack {
-                Text("22awong@pinewood.edu")
-                Text("22akamanger@pinewood.edu")
-                Text("21vreed@pinwood.edu")
-                Text("21sking@pinewood.edu")
-                Text("21mrodriguezsteube@pinewood.edu")
-                Text("21alevy@pinewood.edu")
-            }
             
-            Text("Delete my account")
-                .font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
-                Text("Delete")
-                    .foregroundColor(.white)
+            if users[0] != "fake" {
+                VStack {
+                    ForEach(0..<users.count) { index in
+                        Text("\(users[index])")
+                    }
+                }
             }
-            .padding()
-            .background(Color.red)
-            .cornerRadius(10)
+        }
+        .onAppear(perform: {
+            getUsers()
+        })
+    }
+    
+    func getUsers() {
+        db.collection("users")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        if let email = document.get("email") as? String {
+                            users.append(email)
+                        }
+                    }
+                    users.remove(at: 0)
+                }
         }
     }
 }

@@ -2,7 +2,7 @@
 //  LogInView.swift
 //  SpiritPointsiOSApp
 //
-//  Created by Tech Club on 3/24/21.
+//  Created by Tech Club on 3/24/21
 //
 
 import SwiftUI
@@ -38,6 +38,7 @@ struct LogInView: View {
             .padding(.leading)
             
             TextField("Username", text: $model.email)
+                .autocapitalization(.none)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .textCase(.lowercase)
@@ -52,6 +53,7 @@ struct LogInView: View {
             }.padding(.leading)
             
             SecureField("Password", text: $model.password)
+                .autocapitalization(.none)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
                 .padding(.bottom,50)
