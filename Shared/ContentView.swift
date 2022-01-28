@@ -478,6 +478,9 @@ struct PointsCard: View {
     @Binding var is_winner: Bool
     @State var db = Firestore.firestore()
     @Binding public var isAdmin : Bool
+    @State private var showDialog = false
+    @State var adding = true
+    @State var userEmail = Auth.auth().currentUser?.email ?? "email not found"
     
     @State var changingPoints: String = ""
     
@@ -501,6 +504,18 @@ struct PointsCard: View {
                         .font(.system(.title2,design: .rounded))
                 }
             }
+            .alert(isPresented: $showDialog,
+                TextAlert(title: "Please add a reason",
+                          message: "This is a requirement",
+                          keyboardType: .numberPad) { result in
+                if adding == true {
+                    add_points (points1: points, reason: result ?? "no reason given")
+                }
+                else if adding == false {
+                    sub_points(points1: points, reason: result ?? "no reason given")
+                }
+                
+            })
             .padding(.bottom)
             
             
@@ -533,7 +548,10 @@ struct PointsCard: View {
                         TextField("# of points added", text:$changingPoints)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         
-                        Button(action:{ add_points (points1: points)}) {
+                        Button(action:{
+                            showDialog = true
+                            adding = true
+                        }) {
                             ZStack {
                                 Rectangle()
                                     .fill(Color.green)
@@ -548,7 +566,10 @@ struct PointsCard: View {
                             }
                         }
                     
-                        Button(action:{sub_points(points1: points)}){
+                        Button(action:{
+                            showDialog = true
+                            adding = false
+                        }){
                             ZStack {
                                 Rectangle()
                                     .fill(Color.green)
@@ -574,7 +595,7 @@ struct PointsCard: View {
         .padding()
     }
     
-    func add_points(points1: Int) {
+    func add_points(points1: Int, reason: String) {
         guard let changingPointsInt = Int(changingPoints) else { return }
         print(changingPoints)
         
@@ -593,9 +614,54 @@ struct PointsCard: View {
                 changingPoints = ""
             }
         }
+        
+        //update history in Database
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        let dateString = formatter.string(from: now)
+        
+        db.collection("history").document(dateString).setData([
+            "date": now,
+            "grade": getGradeNumber(grade: grade),
+            "points": changingPointsInt,
+            "reason" : reason,
+            "stringDate" : dateString,
+            "user": userEmail
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+        
+    }
+    
+    func getGradeNumber(grade: String) -> Int {
+        if grade == "7th Grade" {
+            return 7
+        }
+        else if grade == "8th Grade" {
+            return 8
+        }
+        else if grade == "Freshman" {
+            return 9
+        }
+        else if grade == "Sophomores" {
+            return 10
+        }
+        else if grade == "Juniors" {
+            return 11
+        }
+        else if grade == "Seniors" {
+            return 12
+        }
+        return 0
     }
 
-    func sub_points(points1: Int) {
+    func sub_points(points1: Int, reason: String) {
         guard let changingPointsInt = Int(changingPoints) else { return }
         
         let pointsRef = db.collection("points").document(grade)
@@ -611,6 +677,28 @@ struct PointsCard: View {
                 print("Document successfully updated")
                 getPointsForGrade()
                 changingPoints = ""
+            }
+        }
+        
+        //update history in Database
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        let dateString = formatter.string(from: now)
+        
+        db.collection("history").document(dateString).setData([
+            "date": now,
+            "grade": getGradeNumber(grade: grade),
+            "points": -changingPointsInt,
+            "reason" : reason,
+            "stringDate" : dateString,
+            "user": userEmail
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
             }
         }
         
@@ -632,5 +720,3 @@ struct PointsCard: View {
         }
     }
 }
-
-

@@ -26,10 +26,9 @@ struct HistoryView: View {
                         Text("Date: \(result.stringDate), Reason: \(result.reason), User: \(result.user), Grade: \(result.grade), Points: \(result.points)").font(.headline)
                         
                         Spacer()
-                                .frame(height: 20)
-                    }
+                            .frame(height: 20)
                     
-
+                    }
                 }
         }
             .padding(.horizontal, 20)
