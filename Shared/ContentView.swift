@@ -331,19 +331,6 @@ struct ContentView: View {
     }
     
     func pullUpcomingEvents(){
-//        db.collection("upcoming events")
-//            .getDocuments() { (querySnapshot, err) in
-//                if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        if let title = document.get("NameAndDate") as? String{
-//                            upcomingEventsList.append(title)
-//                        }
-//                    }
-//                    upcomingEventsList.remove(at:0)
-//                }
-//        }
         
         db.collection("upcoming events")
             .addSnapshotListener { querySnapshot, error in
@@ -554,7 +541,7 @@ struct PointsCard: View {
                 Spacer()
                     .frame(height: 5)
                     .alert(isPresented: $showDialog,
-                           TextAlert(title: "Add a message",
+                           TextAlert(title: "Add a reason",
                                      message: "This is a requirement",
                                      keyboardType: .numberPad) { result in
                         if adding == true {
@@ -637,11 +624,6 @@ struct PointsCard: View {
             .padding(.horizontal, 20)
             
             Spacer()
-            
-//            Spacer()
-//                .frame(height: 0)
-//
-            
         }
         .frame(width: width, height: 225)
         .border(Color.green, width: 2)

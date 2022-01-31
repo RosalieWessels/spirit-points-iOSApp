@@ -40,7 +40,7 @@ struct HistoryView: View {
     }
     
     func getHistory() {
-        db.collection("history")
+        db.collection("history").order(by: "date", descending: true)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
