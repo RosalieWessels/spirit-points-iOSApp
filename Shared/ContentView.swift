@@ -29,6 +29,8 @@ struct ContentView: View {
     @State var db = Firestore.firestore()
     
     @State var newUpcomingEvent = ""
+    @State var VStacksizing : CGFloat = CGFloat(25)
+    
     
     @AppStorage("log_Status") var status = DefaultStatus.status
     @AppStorage("log_IsAdmin") var isAdmin = false
@@ -37,50 +39,116 @@ struct ContentView: View {
     
     @State var upcomingEventsList = ["fake event"]
     
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    VStack (spacing: 25){
+                    VStack (spacing: CGFloat(VStacksizing)){
                         VStack {
                             Text("Spirits Points App")
                             .foregroundColor(.green)
                             .font(.system(.largeTitle, design: .rounded))
                                 .fontWeight(.black).padding()
                             
-                            Image("panthers").resizable().aspectRatio(contentMode: .fit)
-                                .frame(maxWidth: UIScreen.main.bounds.width - 200)
+                            if sizeClass == .compact {
+                                Image("panthers").resizable().aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: UIScreen.main.bounds.width - 200)
+                            } else {
+                                Image("panthers").resizable().aspectRatio(contentMode: .fit)
+                                    .frame(maxWidth: UIScreen.main.bounds.width / 4)
+                            }
                         }
                         
                         
                         //Cards
                         Text("Junior High:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-                    
-                        if seventhGradePoints != -1 {
-                            PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin)
+                        
+                        if sizeClass == .compact { //if phone screen size
+                            if seventhGradePoints != -1 {
+                                PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
+                                    .padding(.bottom, VStacksizing / 2)
+                            }
+                            
+                            if eighthGradePoints != -1 {
+                                PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
+                            }
+                        }
+                        else { //if ipad screen size
+                            HStack {
+                                Spacer()
+                                
+                                if seventhGradePoints != -1 {
+                                    PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                                
+                                if eighthGradePoints != -1 {
+                                    PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                                
+                                Spacer()
+                                    .frame(width: UIScreen.main.bounds.width / 2)
+                            }
                         }
                         
-                        if eighthGradePoints != -1 {
-                            PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin)
-                        }
                         
                         Text("High School:").font(.system(.title2,design: .rounded)).fontWeight(.bold).padding()
-                
-                        if ninthGradePoints != -1 {
-                            PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin)
+                        
+                        if sizeClass == .compact { //if phone screen size
+                            if ninthGradePoints != -1 {
+                                PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                    .padding(.bottom, VStacksizing / 2)
+                            }
+                            
+                            if tenthGradePoints != -1 {
+                                PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                    .padding(.bottom, VStacksizing / 2)
+                            }
+                            
+                            if eleventhGradePoints != -1 {
+                                PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                    .padding(.bottom, VStacksizing / 2)
+                            }
+                            
+                            if twelfthGradePoints != -1 {
+                                PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                            }
+                        }
+                        else { //if ipad screen size
+                            HStack {
+                                Spacer()
+                                
+                                if ninthGradePoints != -1 {
+                                    PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                                
+                                if tenthGradePoints != -1 {
+                                    PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                                
+                                if eleventhGradePoints != -1 {
+                                    PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                                
+                                if twelfthGradePoints != -1 {
+                                    PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                }
+                                
+                                Spacer()
+                            }
                         }
                         
-                        if tenthGradePoints != -1 {
-                            PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin)
-                        }
-                        
-                        if eleventhGradePoints != -1 {
-                            PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin)
-                        }
-                        
-                        if twelfthGradePoints != -1 {
-                            PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin)
-                        }
                         
                     Group{
                     //Add Bar Graph here:
@@ -93,16 +161,11 @@ struct ContentView: View {
                             BarChartView(data: ChartData(values: [("7th-grade", seventhGradePoints), ("8th-grade", eighthGradePoints), ("9th-grade", ninthGradePoints),
                                 ("10th-grade", tenthGradePoints),
                                 ("11th-grade", eleventhGradePoints),
-                                ("12th-grade", twelfthGradePoints)]), title: "Spirit Points Bar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
+                                                                  ("12th-grade", twelfthGradePoints)]), title: "Spirit Points Bar Graph", legend: "Per Grade", style: chartStyle, form: ChartForm.extraLarge)
 
                         }
 
-                        
-
-
                         Spacer()
-                    
-                    
                     
                         VStack (spacing: 0) {
                         //Add Upcoming Events section here:
@@ -110,7 +173,6 @@ struct ContentView: View {
                             .font(.system(.title2, design: .rounded))
                             .fontWeight(.bold)
                             .padding()
-                            
                             
                             
                             if upcomingEventsList[0] != "fake event" {
@@ -123,26 +185,23 @@ struct ContentView: View {
                                         .background(Color.white)
 
                                     }
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 55)
-                                    .background(Color.white)
                                 }
                                 .background(Color.gray)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
-                                .padding()
+                                .padding(.horizontal, CGFloat(VStacksizing))
+                                .padding(.vertical)
                                 
                             }
                     
                             
                             if isAdmin {
-                                HStack{
-                                    Spacer()
+                                HStack (spacing: 20){
                                     TextField("new upcoming event", text: $newUpcomingEvent)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .padding()
+                                    
                                     Button(action: {addUpcomingEvent()}){
                                         ZStack {
                                             Rectangle()
@@ -157,20 +216,18 @@ struct ContentView: View {
                                                 .padding(.bottom, 5)
                                         }
                                     }
-                                    .padding()
-                                    
-                                    Spacer()
                                 }
+                                .padding([.horizontal, .bottom], CGFloat(VStacksizing))
                             }
                         
                         
-                    }
+                        }
                     }
                     }
                 }
                 //end of vstack here
                  
-                VStack {
+                VStack (spacing: CGFloat(VStacksizing / 4)) {
                     
                     if isAdmin != true {
                         Button(action: {
@@ -183,6 +240,7 @@ struct ContentView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 2)
                         )
+                        .padding(.top, VStacksizing / 4)
                     }
                     
                     
@@ -220,10 +278,9 @@ struct ContentView: View {
                         
                     }
                     
-                    Text("@Pinewood 2022 Tech Club").padding(.top, 20)
+                    Text("@Pinewood 2022 Tech Club").padding(.top, CGFloat(VStacksizing / 2))
                     
                 }
-                
                 .navigationTitle("")
                 .navigationBarHidden(true)
             }
@@ -237,6 +294,12 @@ struct ContentView: View {
             pullUpcomingEvents()
             //findWinningGradeHS()
             checkState()
+            
+            if sizeClass == .compact {
+                VStacksizing = CGFloat(25)
+            } else {
+                VStacksizing = CGFloat(50)
+            }
         })
     }
     
@@ -481,73 +544,44 @@ struct PointsCard: View {
     @State private var showDialog = false
     @State var adding = true
     @State var userEmail = Auth.auth().currentUser?.email ?? "email not found"
+    @State var width : CGFloat
     
     @State var changingPoints: String = ""
     
     var body: some View {
         VStack {
-            
             ZStack {
                 Rectangle()
                     .fill(Color.green)
-                    .frame(width: UIScreen.main.bounds.width - 60)
-                    .padding(-30)
                 
                 HStack {
                     if is_winner {
                         Image(systemName: "crown.fill")
                             .foregroundColor(.yellow)
                     }
-                    
+        
                     Text(grade).font(.body).fontWeight(.heavy)
                         .foregroundColor(Color.white)
                         .font(.system(.title2,design: .rounded))
                 }
             }
-            .alert(isPresented: $showDialog,
-                TextAlert(title: "Please add a reason",
-                          message: "This is a requirement",
-                          keyboardType: .numberPad) { result in
-                if adding == true {
-                    add_points (points1: points, reason: result ?? "no reason given")
-                }
-                else if adding == false {
-                    sub_points(points1: points, reason: result ?? "no reason given")
-                }
-                
-            })
-            .padding(.bottom)
+            .frame(height: 60)
             
+            Spacer()
             
-            VStack (alignment: .leading){
+            VStack (alignment: .leading, spacing: 20) {
                 
-                Spacer()
-                        .frame(height: 30)
+                Text("Number of Points:")
+                    .bold()
                 
-                HStack {
-                    Text("Number of Points:")
-                        .bold()
-                        .padding(.bottom, 6)
-                    
-                    Spacer()
-                }
-                
-                HStack {
-                    Text(String(points))
-                }
-                
-                Spacer()
-                        .frame(height: 30)
-                
-                
-                
+                Text(String(points))
                 
                 if isAdmin == true {
                     HStack{
-                        
+                    
                         TextField("# of points added", text:$changingPoints)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
+        
                         Button(action:{
                             showDialog = true
                             adding = true
@@ -557,7 +591,7 @@ struct PointsCard: View {
                                     .fill(Color.green)
                                     .frame(width:40, height:40)
                                     .cornerRadius(10)
-                                
+        
                                 Text("+")
                                     .foregroundColor(.white)
                                     .font(.system(size:35))
@@ -565,7 +599,7 @@ struct PointsCard: View {
                                     .padding(.bottom, 5)
                             }
                         }
-                    
+        
                         Button(action:{
                             showDialog = true
                             adding = false
@@ -575,7 +609,7 @@ struct PointsCard: View {
                                     .fill(Color.green)
                                     .frame(width:40, height:40)
                                     .cornerRadius(10)
-                                
+        
                                 Text("-")
                                     .foregroundColor(.white)
                                     .font(.system(size:35))
@@ -586,13 +620,25 @@ struct PointsCard: View {
                     }
                 }
             }
-            .padding()
-            .frame(minWidth: 0, maxWidth:.infinity)
+            .padding(.horizontal, 20)
             
-            .overlay(Rectangle().stroke(Color.green, lineWidth: 2))
-            .padding(.horizontal)
+            Spacer()
         }
-        .padding()
+        .frame(width: width, height: 225)
+        .border(Color.green, width: 2)
+        //FIX
+//        .alert(isPresented: $showDialog,
+//           TextAlert(title: "Please add a reason",
+//                     message: "This is a requirement",
+//                     keyboardType: .numberPad) { result in
+//           if adding == true {
+//               add_points (points1: points, reason: result ?? "no reason given")
+//           }
+//           else if adding == false {
+//               sub_points(points1: points, reason: result ?? "no reason given")
+//           }
+//
+//       })
     }
     
     func add_points(points1: Int, reason: String) {
@@ -720,3 +766,4 @@ struct PointsCard: View {
         }
     }
 }
+
