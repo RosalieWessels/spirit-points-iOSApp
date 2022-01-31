@@ -551,6 +551,20 @@ struct PointsCard: View {
     var body: some View {
         VStack {
             ZStack {
+                Spacer()
+                    .frame(height: 5)
+                    .alert(isPresented: $showDialog,
+                           TextAlert(title: "Add a message",
+                                     message: "This is a requirement",
+                                     keyboardType: .numberPad) { result in
+                        if adding == true {
+                            add_points(points1: points, reason: result ?? "no reason given")
+                        }
+                        else if adding == false {
+                            sub_points(points1: points, reason: result ?? "no reason given")
+                        }
+                   })
+                
                 Rectangle()
                     .fill(Color.green)
                 
@@ -563,8 +577,7 @@ struct PointsCard: View {
                     Text(grade).font(.body).fontWeight(.heavy)
                         .foregroundColor(Color.white)
                         .font(.system(.title2,design: .rounded))
-                }
-            }
+                }            }
             .frame(height: 60)
             
             Spacer()
@@ -599,7 +612,7 @@ struct PointsCard: View {
                                     .padding(.bottom, 5)
                             }
                         }
-        
+                        
                         Button(action:{
                             showDialog = true
                             adding = false
@@ -617,28 +630,21 @@ struct PointsCard: View {
                                     .padding(.bottom, 5)
                             }
                         }
+                        
                     }
                 }
             }
             .padding(.horizontal, 20)
             
             Spacer()
+            
+//            Spacer()
+//                .frame(height: 0)
+//
+            
         }
         .frame(width: width, height: 225)
         .border(Color.green, width: 2)
-        //FIX
-//        .alert(isPresented: $showDialog,
-//           TextAlert(title: "Please add a reason",
-//                     message: "This is a requirement",
-//                     keyboardType: .numberPad) { result in
-//           if adding == true {
-//               add_points (points1: points, reason: result ?? "no reason given")
-//           }
-//           else if adding == false {
-//               sub_points(points1: points, reason: result ?? "no reason given")
-//           }
-//
-//       })
     }
     
     func add_points(points1: Int, reason: String) {
