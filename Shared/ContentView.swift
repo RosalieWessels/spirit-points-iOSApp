@@ -17,20 +17,15 @@ struct ContentView: View {
     @State var eleventhGradePoints = -1
     @State var twelfthGradePoints = -1
     
-    @State var iswinner_7th = false
-    @State var iswinner_8th = false
-    @State var iswinner_9th = false
-    @State var iswinner_10th = false
-    @State var iswinner_11th = false
-    @State var iswinner_12th = false
-    
+    @State var winning_grades = ["7th Grade", "Freshman"]
+    @State var order = ["7th Grade", "8th Grade", "Freshman", "Sophomores", "Juniors", "Seniors"]
+    @State var sortedWay = "grades"
     @State var refreshBarGraph = false
 
     @State var db = Firestore.firestore()
     
     @State var newUpcomingEvent = ""
     @State var VStacksizing : CGFloat = CGFloat(25)
-    
     
     @AppStorage("log_Status") var status = DefaultStatus.status
     @AppStorage("log_IsAdmin") var isAdmin = false
@@ -44,8 +39,46 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                HStack(spacing: 0) {
+                    Spacer()
+                    
+                    Button(action: {
+                        order = ["7th Grade", "8th Grade", "Freshman", "Sophomores", "Juniors", "Seniors"]
+                        sortedWay = "grades"
+                    }) {
+                        Text("Grades")
+                            .foregroundColor(.white)
+                            .font(.system(.body, design: .rounded))
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .background(Color.green)
+                            .cornerRadius(20, corners: [.topLeft, .bottomLeft])
+                    }
+                    
+                    Divider()
+                        .frame(width: 1)
+                    
+                    
+                    Button(action: {
+                        sortGrades()
+                        sortedWay = "points"
+                    }) {
+                        Text("Points")
+                            .foregroundColor(.white)
+                            .font(.system(.body, design: .rounded))
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .background(Color.green)
+                            .cornerRadius(20, corners: [.topRight, .bottomRight])
+                    }
+                    .padding(.trailing)
+                }
+                .padding(.bottom)
+                
+                
                 VStack {
                     VStack (spacing: CGFloat(VStacksizing)){
+                        
                         VStack {
                             Text("Spirits Points App")
                             .foregroundColor(.green)
@@ -67,12 +100,12 @@ struct ContentView: View {
                         
                         if sizeClass == .compact { //if phone screen size
                             if seventhGradePoints != -1 {
-                                PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
+                                PointsCard(grade: $order[0], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
                                     .padding(.bottom, VStacksizing / 2)
                             }
                             
                             if eighthGradePoints != -1 {
-                                PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
+                                PointsCard(grade: $order[1], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width) - 60)
                             }
                         }
                         else { //if ipad screen size
@@ -80,13 +113,13 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 if seventhGradePoints != -1 {
-                                    PointsCard(grade: "7th Grade", points: $seventhGradePoints, is_winner: $iswinner_7th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[0], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
                                 
                                 if eighthGradePoints != -1 {
-                                    PointsCard(grade: "8th Grade", points: $eighthGradePoints, is_winner: $iswinner_8th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[1], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
@@ -101,22 +134,22 @@ struct ContentView: View {
                         
                         if sizeClass == .compact { //if phone screen size
                             if ninthGradePoints != -1 {
-                                PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                PointsCard(grade: $order[2], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
                                     .padding(.bottom, VStacksizing / 2)
                             }
                             
                             if tenthGradePoints != -1 {
-                                PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                PointsCard(grade: $order[3], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
                                     .padding(.bottom, VStacksizing / 2)
                             }
                             
                             if eleventhGradePoints != -1 {
-                                PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                PointsCard(grade: $order[4], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
                                     .padding(.bottom, VStacksizing / 2)
                             }
                             
                             if twelfthGradePoints != -1 {
-                                PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
+                                PointsCard(grade: $order[5], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat(UIScreen.main.bounds.width - 60))
                             }
                         }
                         else { //if ipad screen size
@@ -124,25 +157,25 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 if ninthGradePoints != -1 {
-                                    PointsCard(grade: "Freshman", points: $ninthGradePoints, is_winner: $iswinner_9th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[2], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
                                 
                                 if tenthGradePoints != -1 {
-                                    PointsCard(grade: "Sophomores", points: $tenthGradePoints, is_winner: $iswinner_10th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[3], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
                                 
                                 if eleventhGradePoints != -1 {
-                                    PointsCard(grade: "Juniors", points: $eleventhGradePoints, is_winner: $iswinner_11th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[4], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
                                 
                                 if twelfthGradePoints != -1 {
-                                    PointsCard(grade: "Seniors", points: $twelfthGradePoints, is_winner: $iswinner_12th, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
+                                    PointsCard(grade: $order[5], winning_grades: $winning_grades, isAdmin: $isAdmin, width: CGFloat((UIScreen.main.bounds.width / 4) - 40))
                                 }
                                 
                                 Spacer()
@@ -281,7 +314,8 @@ struct ContentView: View {
                     Text("@Pinewood 2022 Tech Club").padding(.top, CGFloat(VStacksizing / 2))
                     
                 }
-                .navigationTitle("")
+                
+                .navigationBarTitle("")
                 .navigationBarHidden(true)
             }
         }
@@ -292,7 +326,6 @@ struct ContentView: View {
         .onAppear(perform: {
             getPoints()
             pullUpcomingEvents()
-            //findWinningGradeHS()
             checkState()
             
             if sizeClass == .compact {
@@ -354,40 +387,26 @@ struct ContentView: View {
     //Finding grade with the least amount of points (current winners)
     func findWinnerHS() {
         if ninthGradePoints >= tenthGradePoints && ninthGradePoints >= eleventhGradePoints && ninthGradePoints >= twelfthGradePoints{
-            iswinner_9th = true
-            iswinner_10th = false
-            iswinner_11th = false
-            iswinner_12th = false
+            winning_grades[1] = "Freshman"
             
         }
         else if tenthGradePoints >= ninthGradePoints && tenthGradePoints >= eleventhGradePoints && tenthGradePoints >= twelfthGradePoints{
-            iswinner_9th = false
-            iswinner_10th = true
-            iswinner_11th = false
-            iswinner_12th = false
+            winning_grades[1] = "Sophomores"
         }
         else if eleventhGradePoints >= ninthGradePoints && eleventhGradePoints >= tenthGradePoints && eleventhGradePoints >= twelfthGradePoints {
-            iswinner_9th = false
-            iswinner_10th = false
-            iswinner_11th = true
-            iswinner_12th = false
+            winning_grades[1] = "Juniors"
         }
         else {
-            iswinner_9th = false
-            iswinner_10th = false
-            iswinner_11th = false
-            iswinner_12th = true
+            winning_grades[1] = "Seniors"
         }
     }
     
     func findWinnerJH() {
         if seventhGradePoints >= eighthGradePoints{
-            iswinner_7th = true
-            iswinner_8th = false
+            winning_grades[0] = "7th Grade"
         }
         else {
-            iswinner_7th = false
-            iswinner_8th = true
+            winning_grades[0] = "8th Grade"
         }
     }
     
@@ -415,6 +434,9 @@ struct ContentView: View {
                 print(seventhGradePoints)
                 findWinnerJH()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
         
@@ -434,6 +456,9 @@ struct ContentView: View {
                 print(eighthGradePoints)
                 findWinnerJH()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
         
@@ -453,6 +478,9 @@ struct ContentView: View {
                 print(ninthGradePoints)
                 findWinnerHS()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
         
@@ -472,6 +500,9 @@ struct ContentView: View {
                 print(tenthGradePoints)
                 findWinnerHS()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
         
@@ -491,6 +522,9 @@ struct ContentView: View {
                 print(eleventhGradePoints)
                 findWinnerHS()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
         
@@ -510,8 +544,28 @@ struct ContentView: View {
                 print(twelfthGradePoints)
                 findWinnerHS()
                 refreshBarGraphFunction()
+                if sortedWay == "points" {
+                    sortGrades()
+                }
             }
         }
+    }
+    
+    func sortGrades() {
+        order = []
+        let dictionaryJH = ["7th Grade" : seventhGradePoints, "8th Grade" : eighthGradePoints]
+        let sortedJH = Array(dictionaryJH.keys).sorted(by: { dictionaryJH[$0]! > dictionaryJH[$1]! })
+        for grade in sortedJH {
+            order.append(grade)
+        }
+        
+        let dictionaryHS = ["Freshman" : ninthGradePoints, "Sophomores" : tenthGradePoints, "Juniors" : eleventhGradePoints, "Seniors" : twelfthGradePoints]
+        let sortedHS = Array(dictionaryHS.keys).sorted(by: { dictionaryHS[$0]! > dictionaryHS[$1]! })
+        for grade in sortedHS {
+            order.append(grade)
+        }
+        
+        print("SORTED", order)
     }
     
 }
@@ -523,9 +577,9 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct PointsCard: View {
-    @State var grade: String
-    @Binding var points: Int
-    @Binding var is_winner: Bool
+    @Binding var grade: String
+    @State var points = 0
+    @Binding var winning_grades : [String]
     @State var db = Firestore.firestore()
     @Binding public var isAdmin : Bool
     @State private var showDialog = false
@@ -556,14 +610,17 @@ struct PointsCard: View {
                     .fill(Color.green)
                 
                 HStack {
-                    if is_winner {
+                    if winning_grades.contains(grade) {
                         Image(systemName: "crown.fill")
                             .foregroundColor(.yellow)
                     }
         
-                    Text(grade).font(.body).fontWeight(.heavy)
+                    Text(grade)
+                        .font(.body).fontWeight(.heavy)
                         .foregroundColor(Color.white)
                         .font(.system(.title2,design: .rounded))
+                        
+                        
                 }            }
             .frame(height: 60)
             
@@ -579,7 +636,7 @@ struct PointsCard: View {
                 if isAdmin == true {
                     HStack{
                     
-                        TextField("# of points added", text:$changingPoints)
+                        TextField("# of points added", text: $changingPoints)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
         
                         Button(action:{
@@ -627,6 +684,11 @@ struct PointsCard: View {
         }
         .frame(width: width, height: 225)
         .border(Color.green, width: 2)
+        .onAppear(perform: getPointsForGrade)
+        .onChange(of: grade) { newValue in
+            getPointsForGrade()
+        }
+        
     }
     
     func add_points(points1: Int, reason: String) {
@@ -740,7 +802,6 @@ struct PointsCard: View {
     
     func getPointsForGrade() {
         let docRef = db.collection("points").document(grade)
-
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
@@ -755,3 +816,20 @@ struct PointsCard: View {
     }
 }
 
+//EXTENSIONS
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
