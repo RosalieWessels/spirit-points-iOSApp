@@ -437,6 +437,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
         
@@ -459,6 +460,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
         
@@ -481,6 +483,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
         
@@ -503,6 +506,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
         
@@ -525,6 +529,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
         
@@ -547,6 +552,7 @@ struct ContentView: View {
                 if sortedWay == "points" {
                     sortGrades()
                 }
+                MyVariables.reRunPoints.toggle()
             }
         }
     }
@@ -597,7 +603,7 @@ struct PointsCard: View {
                     .alert(isPresented: $showDialog,
                            TextAlert(title: "Add a reason",
                                      message: "This is a requirement",
-                                     keyboardType: .numberPad) { result in
+                                     keyboardType: .default) { result in
                         if adding == true {
                             add_points(points1: points, reason: result ?? "no reason given")
                         }
@@ -686,6 +692,9 @@ struct PointsCard: View {
         .border(Color.green, width: 2)
         .onAppear(perform: getPointsForGrade)
         .onChange(of: grade) { newValue in
+            getPointsForGrade()
+        }
+        .onChange(of: MyVariables.reRunPoints) { newValue in
             getPointsForGrade()
         }
         
@@ -832,4 +841,8 @@ struct RoundedCorner: Shape {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
     }
+}
+
+struct MyVariables {
+    static var reRunPoints = false
 }
