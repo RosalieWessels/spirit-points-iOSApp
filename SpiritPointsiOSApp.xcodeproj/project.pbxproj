@@ -25,6 +25,8 @@
 		11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
 		11DCC79327E6705000AD81D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */; };
 		11DCC79427E6705100AD81D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */; };
+		11DCC79A27E674FD00AD81D8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DCC79927E674FD00AD81D8 /* CardView.swift */; };
+		11DCC79B27E674FD00AD81D8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DCC79927E674FD00AD81D8 /* CardView.swift */; };
 		4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */; };
 		B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */; };
 		F683F8AE26278CFA00BE9F0B /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F683F8AD26278CFA00BE9F0B /* SwiftUICharts */; };
@@ -68,6 +70,7 @@
 		1166BCCB263E291700F079D4 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		11ABC20F260BD63900F0DF97 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		11DCC79927E674FD00AD81D8 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpiritPointsiOSApp__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; sourceTree = "<group>"; };
@@ -127,12 +130,10 @@
 		113DE8DF256C887E00C19DD2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */,
-				113DE8E1256C887E00C19DD2 /* ContentView.swift */,
-				1135C8DC27A3BC4200E4D2CB /* AlertViews.swift */,
-				1125422A2638B04A007A74FC /* HistoryView.swift */,
-				1166BCCB263E291700F079D4 /* UsersView.swift */,
-				11ABC20F260BD63900F0DF97 /* LogInView.swift */,
+				11DCC79527E6749D00AD81D8 /* App */,
+				11DCC79627E674AB00AD81D8 /* Data */,
+				11DCC79727E674B000AD81D8 /* Model */,
+				11DCC79827E674B500AD81D8 /* View */,
 				113DE8E2256C887F00C19DD2 /* Assets.xcassets */,
 				11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */,
 			);
@@ -183,6 +184,41 @@
 				113DE908256C887F00C19DD2 /* Info.plist */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		11DCC79527E6749D00AD81D8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */,
+				113DE8E1256C887E00C19DD2 /* ContentView.swift */,
+				1135C8DC27A3BC4200E4D2CB /* AlertViews.swift */,
+				1125422A2638B04A007A74FC /* HistoryView.swift */,
+				1166BCCB263E291700F079D4 /* UsersView.swift */,
+				11ABC20F260BD63900F0DF97 /* LogInView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		11DCC79627E674AB00AD81D8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		11DCC79727E674B000AD81D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		11DCC79827E674B500AD81D8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				11DCC79927E674FD00AD81D8 /* CardView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		63BB099260CD35827027DD06 /* Frameworks */ = {
@@ -437,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DCC79A27E674FD00AD81D8 /* CardView.swift in Sources */,
 				1166BCCC263E291700F079D4 /* UsersView.swift in Sources */,
 				11ABC210260BD63900F0DF97 /* LogInView.swift in Sources */,
 				1125422B2638B04A007A74FC /* HistoryView.swift in Sources */,
@@ -450,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11DCC79B27E674FD00AD81D8 /* CardView.swift in Sources */,
 				1166BCCD263E291700F079D4 /* UsersView.swift in Sources */,
 				11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */,
 				1125422C2638B04A007A74FC /* HistoryView.swift in Sources */,
@@ -609,7 +647,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V2J7W74MKY;
+				DEVELOPMENT_TEAM = 3BLB3KYPDK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -632,7 +670,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V2J7W74MKY;
+				DEVELOPMENT_TEAM = 3BLB3KYPDK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
