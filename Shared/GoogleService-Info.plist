@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>761766961680-m52l78uhe9ffqj834pq3aulg16madfg2.apps.googleusercontent.com</string>
+	<string>604971263604-j54bbscp6s97uj1totf6cuqehps32r33.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.761766961680-m52l78uhe9ffqj834pq3aulg16madfg2</string>
+	<string>com.googleusercontent.apps.604971263604-j54bbscp6s97uj1totf6cuqehps32r33</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCNuLUrhAz3fjHXdFYjXjz51scBwdzC4eA</string>
+	<string>AIzaSyAIxn1C6z3ykrfzFUjkdKx0NC59Az879LM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>761766961680</string>
+	<string>604971263604</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.RosalieWessels.SpiritPointsiOSApp</string>
 	<key>PROJECT_ID</key>
-	<string>pinewoodspiritpointstest</string>
+	<string>pinewoodspiritpointswebs-3b49d</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pinewoodspiritpointstest.appspot.com</string>
+	<string>pinewoodspiritpointswebs-3b49d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:761766961680:ios:74fd3a7989602170c92095</string>
+	<string>1:604971263604:ios:ff0b1651700799fc495321</string>
+	<key>DATABASE_URL</key>
+	<string>https://pinewoodspiritpointswebs-3b49d.firebaseio.com</string>
 </dict>
 </plist>

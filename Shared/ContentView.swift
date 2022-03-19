@@ -208,25 +208,25 @@ struct ContentView: View {
                             .padding()
                             
                             
-                            if upcomingEventsList[0] != "fake event" {
-                                
-                                VStack(spacing: 1) {
-                                    ForEach(upcomingEventsList, id: \.self) { event in
-                                        Text("\(event)")
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 55)
-                                        .background(Color.white)
+                            if upcomingEventsList.count > 0 {
+                                if upcomingEventsList[0] != "fake event" {
+                                    VStack(spacing: 1) {
+                                        ForEach(upcomingEventsList, id: \.self) { event in
+                                            Text("\(event)")
+                                            .frame(maxWidth: .infinity)
+                                            .frame(height: 55)
+                                            .background(Color.white)
 
+                                        }
                                     }
+                                    .background(Color.gray)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.gray, lineWidth: 1)
+                                    )
+                                    .padding(.horizontal, CGFloat(VStacksizing))
+                                    .padding(.vertical)
                                 }
-                                .background(Color.gray)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                                .padding(.horizontal, CGFloat(VStacksizing))
-                                .padding(.vertical)
-                                
                             }
                     
                             

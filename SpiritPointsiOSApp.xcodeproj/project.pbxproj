@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		1125422B2638B04A007A74FC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1125422A2638B04A007A74FC /* HistoryView.swift */; };
 		1125422C2638B04A007A74FC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1125422A2638B04A007A74FC /* HistoryView.swift */; };
-		112AC35E25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */; };
-		112AC35F25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */; };
 		1135C8DD27A3BC4200E4D2CB /* AlertViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1135C8DC27A3BC4200E4D2CB /* AlertViews.swift */; };
 		1135C8DE27A3BC4200E4D2CB /* AlertViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1135C8DC27A3BC4200E4D2CB /* AlertViews.swift */; };
 		113DE8FC256C887F00C19DD2 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DE8FB256C887F00C19DD2 /* Tests_iOS.swift */; };
@@ -25,6 +23,8 @@
 		1166BCCD263E291700F079D4 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166BCCB263E291700F079D4 /* UsersView.swift */; };
 		11ABC210260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
 		11ABC211260BD63900F0DF97 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ABC20F260BD63900F0DF97 /* LogInView.swift */; };
+		11DCC79327E6705000AD81D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */; };
+		11DCC79427E6705100AD81D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */; };
 		4F2B2224B06AE1854BBE6604 /* Pods_SpiritPointsiOSApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA08B5DD3B1B105A0D7DDDA7 /* Pods_SpiritPointsiOSApp__iOS_.framework */; };
 		B4BF63098A7B765A221490FA /* Pods_SpiritPointsiOSApp__macOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */; };
 		F683F8AE26278CFA00BE9F0B /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = F683F8AD26278CFA00BE9F0B /* SwiftUICharts */; };
@@ -50,7 +50,6 @@
 /* Begin PBXFileReference section */
 		07A20A2DADA2786275B1CE49 /* Pods-SpiritPointsiOSApp (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).debug.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).debug.xcconfig"; sourceTree = "<group>"; };
 		1125422A2638B04A007A74FC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1135C8DC27A3BC4200E4D2CB /* AlertViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViews.swift; sourceTree = "<group>"; };
 		113DE8E0256C887E00C19DD2 /* SpiritPointsiOSAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritPointsiOSAppApp.swift; sourceTree = "<group>"; };
 		113DE8E1256C887E00C19DD2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +67,7 @@
 		113DE908256C887F00C19DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1166BCCB263E291700F079D4 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		11ABC20F260BD63900F0DF97 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		15787796590CD905F76D21D1 /* Pods_SpiritPointsiOSApp__macOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpiritPointsiOSApp__macOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1944C82AABD430AC8FFDA3A2 /* Pods-SpiritPointsiOSApp (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (iOS)/Pods-SpiritPointsiOSApp (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		66C527BF125BFC26FE87F50C /* Pods-SpiritPointsiOSApp (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; path = "Target Support Files/Pods-SpiritPointsiOSApp (macOS)/Pods-SpiritPointsiOSApp (macOS).release.xcconfig"; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				1166BCCB263E291700F079D4 /* UsersView.swift */,
 				11ABC20F260BD63900F0DF97 /* LogInView.swift */,
 				113DE8E2256C887F00C19DD2 /* Assets.xcassets */,
-				112AC35D25F5D02E0064FA09 /* GoogleService-Info.plist */,
+				11DCC79227E6705000AD81D8 /* GoogleService-Info.plist */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -338,7 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				112AC35E25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */,
+				11DCC79327E6705000AD81D8 /* GoogleService-Info.plist in Resources */,
 				113DE90D256C887F00C19DD2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				112AC35F25F5D02E0064FA09 /* GoogleService-Info.plist in Resources */,
+				11DCC79427E6705100AD81D8 /* GoogleService-Info.plist in Resources */,
 				113DE90E256C887F00C19DD2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
